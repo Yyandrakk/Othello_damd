@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Othello</string>
+    <string name="round_already_finished">Partida terminada</string>
+    <string name="game_over">Has perdido</string>
+    <string name="invalid_movement">Movimiento no valido</string>
 </resources>
