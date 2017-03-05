@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uam.oscar_garcia.othello.RoundActivity">
+    tools:context="es.uam.oscar_garcia.othello.actividades.RoundActivity">
 
     <TextView
         android:layout_width="wrap_content"

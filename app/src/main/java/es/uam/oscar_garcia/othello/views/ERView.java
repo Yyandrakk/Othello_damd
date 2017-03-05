@@ -60,6 +60,8 @@ public class ERView extends View {
 
 
     private void init() {
+
+        this.board=new ERBoard(8);
         backgroundPaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2);
     }

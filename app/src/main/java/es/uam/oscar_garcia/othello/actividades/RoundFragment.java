@@ -1,5 +1,6 @@
 package es.uam.oscar_garcia.othello.actividades;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -35,14 +36,26 @@ public class RoundFragment extends Fragment implements PartidaListener {
     private Round round;
     private Partida game;
 
-
     private Callbacks callbacks;
     public interface Callbacks {
         void onRoundUpdated(Round round);
     }
 
     public RoundFragment() {
+        super();
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        callbacks = (Callbacks) context;
+    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        callbacks = null;
+    }
+
     public static RoundFragment newInstance(String roundId) {
         Bundle args = new Bundle();
         args.putString(ARG_ROUND_ID, roundId);

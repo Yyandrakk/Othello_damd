@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Round {
 
-    private int size;
+    private int size=8;
     private String id;
     private String title;
     private String date;
