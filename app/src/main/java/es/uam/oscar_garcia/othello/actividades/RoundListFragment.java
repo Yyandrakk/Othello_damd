@@ -4,6 +4,8 @@ package es.uam.oscar_garcia.othello.actividades;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.R;
+import es.uam.oscar_garcia.othello.model.ERBoard;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
 
@@ -140,6 +144,17 @@ public class RoundListFragment extends Fragment {
                         callbacks.onRoundSelected(round);
                     }
                 }));
+
+        /*FloatingActionButton addButton = (FloatingActionButton)
+                getView().findViewById(R.id.add_round_fab);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Round round = new Round(RoundRepository.SIZE);
+                RoundRepository.get(getActivity()).addRound(round);
+                updateUI();
+            }
+        });*/
         updateUI();
         return view;
     }
