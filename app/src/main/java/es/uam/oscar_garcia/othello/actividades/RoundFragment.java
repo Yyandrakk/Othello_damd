@@ -2,6 +2,7 @@ package es.uam.oscar_garcia.othello.actividades;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -92,7 +93,8 @@ public class RoundFragment extends Fragment implements PartidaListener {
 
     void startRound() {
         ArrayList<Jugador> players = new ArrayList<Jugador>();
-        JugadorAleatorio randomPlayer = new JugadorAleatorio("Random player");
+        //JugadorAleatorio randomPlayer = new JugadorAleatorio(getView().getResources().getText(R.string.name_aleatorio));
+        JugadorAleatorio randomPlayer = new JugadorAleatorio("Jugador aleatorio");
         ERLocalPlayer localPlayer = new ERLocalPlayer();
         players.add(randomPlayer);
         players.add(localPlayer);
@@ -102,9 +104,34 @@ public class RoundFragment extends Fragment implements PartidaListener {
         boardView = (ERView) getView().findViewById(R.id.board_erview);
         boardView.setBoard(size, round.getBoard());
         boardView.setOnPlayListener(localPlayer);
+        registerListener();
         if (game.getTablero().getEstado() == Tablero.EN_CURSO)
             game.comenzar();
 
+    }
+
+    void registerListener(){
+        FloatingActionButton resetButton = (FloatingActionButton)
+                getView().findViewById(R.id.reset_round_fab);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (round.getBoard().getEstado() != Tablero.EN_CURSO) {
+                    Snackbar.make(getView(), R.string.round_already_finished,
+                            Snackbar.LENGTH_SHORT).show();
+                    return;
+                }
+                round.setBoard(new ERBoard(8));
+                boardView.setBoard(8,round.getBoard());
+                boardView.invalidate();
+                callbacks.onRoundUpdated(round);
+                startRound();
+
+                callbacks.onRoundUpdated(round);
+                Snackbar.make(getView(), R.string.round_restarted,
+                        Snackbar.LENGTH_SHORT).show();
+            }
+            });
     }
 
 
@@ -137,7 +164,12 @@ public class RoundFragment extends Fragment implements PartidaListener {
             case Evento.EVENTO_FIN:
                 boardView.invalidate();
                 callbacks.onRoundUpdated(round);
-                Snackbar.make(getView(), R.string.game_over, Snackbar.LENGTH_SHORT).show();
+                if(round.getBoard().getTurno()==1){
+                    Snackbar.make(getView(), R.string.win, Snackbar.LENGTH_SHORT).show();
+                }else{
+                    Snackbar.make(getView(), R.string.game_over, Snackbar.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }

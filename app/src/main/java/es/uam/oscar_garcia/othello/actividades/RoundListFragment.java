@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -49,10 +50,22 @@ public class RoundListFragment extends Fragment {
         super.onDetach();
         callbacks = null;
     }
+/*
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_round:
+                Round round = new Round(RoundRepository.SIZE);
+                RoundRepository.get(getActivity()).addRound(round);
+                updateUI();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
+    }
 
-
-    public class RoundHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
+*/
+    public class RoundHolder extends RecyclerView.ViewHolder  {
         private TextView idTextView;
         //private TextView boardTextView;
         private TextView dateTextView;
@@ -61,7 +74,7 @@ public class RoundListFragment extends Fragment {
 
         public RoundHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
             idTextView = (TextView) itemView.findViewById(R.id.list_item_id);
             // boardTextView = (TextView) itemView.findViewById(R.id.list_item_board);
             dateTextView = (TextView) itemView.findViewById(R.id.list_item_date);
@@ -77,9 +90,7 @@ public class RoundListFragment extends Fragment {
             Intent intent = RoundActivity.newIntent(context, round.getId());
             context.startActivity(intent);
         }*/
-        public void onClick(View v) {
-            callbacks.onRoundSelected(round);
-        }
+       // public void onClick(View v) {     callbacks.onRoundSelected(round); }
     }
 
     public class RoundAdapter extends RecyclerView.Adapter<RoundHolder> {
@@ -112,11 +123,23 @@ public class RoundListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_round_list, container, false);
+
         roundRecyclerView = (RecyclerView) view.findViewById(R.id.round_recycler_view);
         RecyclerView.LayoutManager linearLayoutManager = new
                 LinearLayoutManager(getActivity());
         roundRecyclerView.setLayoutManager(linearLayoutManager);
         roundRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        roundRecyclerView.addOnItemTouchListener(new
+                RecyclerItemClickListener(getActivity(), new
+                RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Round round =
+                                RoundRepository.get(getContext()).getRounds().get(position);
+                        callbacks.onRoundSelected(round);
+                    }
+                }));
         updateUI();
         return view;
     }

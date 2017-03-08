@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public class RoundRepository {
-    private static final int SIZE = 3;
+    public static final int SIZE = 8;
     private static RoundRepository repository;
     private List<Round> rounds;
     public static RoundRepository get(Context context) {
@@ -21,7 +21,7 @@ public class RoundRepository {
     }
     private RoundRepository(Context context) {
         rounds = new ArrayList<Round>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             Round round = new Round(SIZE);
             rounds.add(round);
         }

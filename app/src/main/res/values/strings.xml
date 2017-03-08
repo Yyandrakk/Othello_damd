@@ -3,4 +3,8 @@
     <string name="round_already_finished">Partida terminada</string>
     <string name="game_over">Has perdido</string>
     <string name="invalid_movement">Movimiento no valido</string>
+    <string name="new_round">Nueva partida</string>
+    <string name="round_restarted">Ronda recomenzada</string>
+    <string name="win">Has ganado la partida</string>
+    <string name="name_aleatorio">Jugador Aleatorio</string>
 </resources>
