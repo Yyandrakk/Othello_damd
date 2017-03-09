@@ -7,4 +7,10 @@
     <string name="round_restarted">Ronda recomenzada</string>
     <string name="win">Has ganado la partida</string>
     <string name="name_aleatorio">Jugador Aleatorio</string>
+    <string name="title_activity_barra">barra</string>
+
+    <string name="navigation_drawer_open">Abrir barra de navegacion</string>
+    <string name="navigation_drawer_close">Cerrar barra de navegacion</string>
+
+    <string name="action_settings">Opciones</string>
 </resources>

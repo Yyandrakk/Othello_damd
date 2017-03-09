@@ -8,4 +8,9 @@
     <string name="new_round">New Round</string>
     <string name="round_restarted">Round restarted</string>
     <string name="name_aleatorio">Random player</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

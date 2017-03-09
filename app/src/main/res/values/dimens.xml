@@ -5,4 +5,7 @@
     <dimen name="tipo_grande">20dp</dimen>
     <dimen name="tipo_reducido">10dp</dimen>
     <dimen name="title_size">20dp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
