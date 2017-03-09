@@ -11,8 +11,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+
+import es.uam.eps.multij.Movimiento;
 import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.model.ERBoard;
+import logica_juego.MovimientoOthello;
 
 
 /**
@@ -110,24 +114,29 @@ public class ERView extends View {
    
         private void drawCircles(Canvas canvas, Paint paint) {
             float centerRaw, centerColumn;
+            ArrayList<Movimiento> validos=board.movimientosValidos();
             for (int i = 0; i < size; i++) {
                 int pos = size - i - 1;
                 centerRaw = heightOfTile * (1 + 2 * pos) / 2f;
                 for (int j = 0; j < size; j++) {
                     centerColumn = widthOfTile * (1 + 2 * j) / 2f;
-                    setPaintColor(paint, i, j);
+                    setPaintColor(paint, i, j,validos.contains(new MovimientoOthello(i,j)));
                     canvas.drawCircle(centerColumn, centerRaw, radio, paint);
                 }
             }
         }
 
-    private void setPaintColor(Paint paint, int i, int j) {
-        if (board.getTablero(i, j) == ERBoard.JUGADOR1)
-            paint.setColor(Color.BLUE);
-        else if (board.getTablero(i, j) == 0)
+    private void setPaintColor(Paint paint, int i, int j,boolean valido) {
+        if(valido)
             paint.setColor(Color.GRAY);
-        else
+        else if (board.getTablero(i, j) == ERBoard.JUGADOR1)
+            paint.setColor(Color.BLUE);
+        else if (board.getTablero(i, j) == ERBoard.JUGADOR2)
             paint.setColor(Color.GREEN);
+        else{
+            paint.setColor(Color.BLACK);
+        }
+
     }
 
 

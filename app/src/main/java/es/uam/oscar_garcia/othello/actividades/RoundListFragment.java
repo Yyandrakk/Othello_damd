@@ -11,6 +11,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +56,11 @@ public class RoundListFragment extends Fragment {
         super.onDetach();
         callbacks = null;
     }
-/*
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_round:
@@ -68,7 +74,7 @@ public class RoundListFragment extends Fragment {
 
     }
 
-*/
+
     public class RoundHolder extends RecyclerView.ViewHolder  {
         private TextView idTextView;
         //private TextView boardTextView;
@@ -127,7 +133,7 @@ public class RoundListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_round_list, container, false);
-
+        this.setHasOptionsMenu(true);
         roundRecyclerView = (RecyclerView) view.findViewById(R.id.round_recycler_view);
         RecyclerView.LayoutManager linearLayoutManager = new
                 LinearLayoutManager(getActivity());
@@ -144,7 +150,7 @@ public class RoundListFragment extends Fragment {
                         callbacks.onRoundSelected(round);
                     }
                 }));
-
+    this.setHasOptionsMenu(true);
         /*FloatingActionButton addButton = (FloatingActionButton)
                 getView().findViewById(R.id.add_round_fab);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +161,7 @@ public class RoundListFragment extends Fragment {
                 updateUI();
             }
         });*/
+
         updateUI();
         return view;
     }

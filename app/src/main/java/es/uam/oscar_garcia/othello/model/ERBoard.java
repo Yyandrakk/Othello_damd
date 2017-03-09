@@ -8,6 +8,7 @@ import logica_juego.TableroOthello;
 
 public class ERBoard extends TableroOthello {
     public static final int JUGADOR1 = 1;
+    public static final int JUGADOR2 = 2;
 
     public ERBoard(int size){
         super();

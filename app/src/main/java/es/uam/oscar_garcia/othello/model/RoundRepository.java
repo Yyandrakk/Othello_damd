@@ -21,7 +21,7 @@ public class RoundRepository {
     }
     private RoundRepository(Context context) {
         rounds = new ArrayList<Round>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             Round round = new Round(SIZE);
             rounds.add(round);
         }
@@ -40,4 +40,6 @@ public class RoundRepository {
     public void addRound(Round round){
         rounds.add(round);
     }
+
+    public void deleteRound(Round round){rounds.remove(round);}
 }
