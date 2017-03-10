@@ -26,6 +26,12 @@ import logica_juego.MovimientoOthello;
 public class ERView extends View {
 
     private final String DEBUG = "ERView";
+    private final int VACIA_C=Color.parseColor("#D1C4E9");
+    private final int TABLERO_C=Color.parseColor("#9575cd");
+    private final int POSIBLE_C=Color.parseColor("#7986CB");
+    private  final int JUG1_C=Color.parseColor("#7CB342");
+    private final int JUG2_C=Color.parseColor("#FF5722");
+
     private int numero;
     private Paint backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -66,7 +72,8 @@ public class ERView extends View {
     private void init() {
 
         this.board=new ERBoard(8);
-        backgroundPaint.setColor(Color.BLACK);
+        backgroundPaint.setColor(TABLERO_C);
+
         linePaint.setStrokeWidth(2);
     }
 
@@ -128,13 +135,13 @@ public class ERView extends View {
 
     private void setPaintColor(Paint paint, int i, int j,boolean valido) {
         if(valido)
-            paint.setColor(Color.GRAY);
+            paint.setColor(POSIBLE_C);
         else if (board.getTablero(i, j) == ERBoard.JUGADOR1)
-            paint.setColor(Color.BLUE);
+            paint.setColor(JUG1_C);
         else if (board.getTablero(i, j) == ERBoard.JUGADOR2)
-            paint.setColor(Color.GREEN);
+            paint.setColor(JUG2_C);
         else{
-            paint.setColor(Color.BLACK);
+            paint.setColor(VACIA_C);
         }
 
     }

@@ -3,6 +3,7 @@ package es.uam.oscar_garcia.othello.actividades;
 
 import android.content.Context;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -133,6 +134,7 @@ public class RoundListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_round_list, container, false);
         this.setHasOptionsMenu(true);
+        view.setBackgroundColor(Color.parseColor("#D1C4E9"));
         roundRecyclerView = (RecyclerView) view.findViewById(R.id.round_recycler_view);
         RecyclerView.LayoutManager linearLayoutManager = new
                 LinearLayoutManager(getActivity());

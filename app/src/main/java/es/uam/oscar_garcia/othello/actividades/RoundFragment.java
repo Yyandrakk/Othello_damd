@@ -1,6 +1,7 @@
 package es.uam.oscar_garcia.othello.actividades;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -81,7 +82,7 @@ public class RoundFragment extends Fragment implements PartidaListener {
         TextView roundTitleTextView = (TextView)
                 rootView.findViewById(R.id.round_title);
         roundTitleTextView.setText(round.getTitle());
-
+        rootView.setBackgroundColor(Color.parseColor("#D1C4E9"));
         return rootView;
     }
     @Override
