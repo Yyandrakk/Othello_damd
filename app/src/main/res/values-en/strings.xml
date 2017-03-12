@@ -4,11 +4,12 @@
     <string name="round_already_finished">This round is finished</string>
     <string name="game_over">Game Over</string>
     <string name="win">You win the round</string>
+    <string name="draw">You are draw!!</string>
     <string name="invalid_movement">Invalid movement</string>
     <string name="new_round">New Round</string>
     <string name="round_restarted">Round restarted</string>
     <string name="name_aleatorio">Random player</string>
-
+    <string name="round_name">Round</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

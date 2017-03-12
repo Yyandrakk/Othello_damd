@@ -133,8 +133,11 @@ public class RoundListFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_round_list, container, false);
+
         this.setHasOptionsMenu(true);
+
         view.setBackgroundColor(Color.parseColor("#D1C4E9"));
+
         roundRecyclerView = (RecyclerView) view.findViewById(R.id.round_recycler_view);
         RecyclerView.LayoutManager linearLayoutManager = new
                 LinearLayoutManager(getActivity());
@@ -152,17 +155,6 @@ public class RoundListFragment extends Fragment {
                     }
                 }));
     this.setHasOptionsMenu(true);
-
-        /*FloatingActionButton addButton = (FloatingActionButton)
-                getView().findViewById(R.id.add_round_fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Round round = new Round(RoundRepository.SIZE);
-                RoundRepository.get(getActivity()).addRound(round);
-                updateUI();
-            }
-        });*/
 
         updateUI();
         return view;

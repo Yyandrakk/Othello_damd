@@ -42,33 +42,52 @@ public class ERView extends View {
     private ERBoard board;
     OnPlayListener onPlayListener;
 
+    /**
+     * Constructor de ERView
+     * @param context
+     */
     public ERView(Context context) {
         super(context);
         init();
     }
 
+    /**
+     * Constructor de ERView
+     * @param context
+     * @param attrs
+     */
     public ERView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /**
+     * Constructor de ERView
+     * @param context
+     * @param attrs
+     * @param defStyleAttr
+     */
     public ERView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    /**
+     * Constructor de ERView
+     * @param context
+     * @param attrs
+     * @param defStyleAttr
+     * @param defStyleRes
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ERView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-  /*  public ERView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }*/
 
-
-
+    /**
+     * Inicializa el tablero, y le pone un color
+     */
     private void init() {
 
         this.board=new ERBoard(8);
@@ -81,6 +100,11 @@ public class ERView extends View {
         void onPlay(int i, int j);
     }
 
+    /**
+     * Calcula las dimensiones de la pantalla
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int desiredWidth = 500;
@@ -99,6 +123,13 @@ public class ERView extends View {
         setMeasuredDimension(width, height);
     }
 
+    /**
+     * Mira si el tamanyo ha cambiado
+     * @param w
+     * @param h
+     * @param oldw
+     * @param oldh
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         widthOfTile = w / size;
@@ -110,6 +141,10 @@ public class ERView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
+    /**
+     *
+     * @param canvas
+     */
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         float boardWidth = getWidth();

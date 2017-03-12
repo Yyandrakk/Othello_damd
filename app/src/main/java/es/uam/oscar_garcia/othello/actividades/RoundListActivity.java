@@ -25,6 +25,10 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
     private RoundListFragment.RoundAdapter roundAdapter;
 
 
+    /**
+     * Crear la actividad y los fragmentos asociados
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
@@ -41,6 +45,10 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
         }
     }
 
+    /**
+     * Inicializa la actividad o elfragmento para la ronda selecionada
+     * @param round Round selecionada
+     */
     @Override
     public void onRoundSelected(Round round) {
         if (findViewById(R.id.detail_fragment_container) == null) {
@@ -54,6 +62,10 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
         }
     }
 
+    /**
+     * Actualiza los fragmentos de la lista
+     * @param round Round modificada
+     */
     public void onRoundUpdated(Round round) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         RoundListFragment roundListFragment = (RoundListFragment)
@@ -61,32 +73,4 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
         roundListFragment.updateUI();
     }
 
-
-    /*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_round_list);
-        roundRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager linearLayoutManager = new
-                LinearLayoutManager(getApplicationContext());
-        roundRecyclerView.setLayoutManager(linearLayoutManager);
-        roundRecyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
-    }
-    private void updateUI() {
-        RoundRepository repository = RoundRepository.get(this);
-        List<Round> rounds = repository.getRounds();
-        if (roundAdapter == null) {
-            roundAdapter = new RoundAdapter(rounds);
-            roundRecyclerView.setAdapter(roundAdapter);
-        } else {
-            roundAdapter.notifyDataSetChanged();
-        }
-    }
-*/
 }

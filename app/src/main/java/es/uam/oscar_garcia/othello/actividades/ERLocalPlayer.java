@@ -15,9 +15,18 @@ public class ERLocalPlayer implements  Jugador, ERView.OnPlayListener {
 
     private int SIZE = 8;
     Partida game;
+
+    /**
+     * Constructor del Jugador Humano
+     */
     public ERLocalPlayer() {
     }
 
+    /**
+     * Realiza la accion de mover si la partida sigue en curso
+     * @param row fila del movimiento
+     * @param column columna del movimiento
+     */
     @Override
     public void onPlay(int row, int column) {
         try {
@@ -31,17 +40,36 @@ public class ERLocalPlayer implements  Jugador, ERView.OnPlayListener {
         }
     }
 
+    /**
+     * @deprecated
+     * @param evento
+     */
     @Override
     public void onCambioEnPartida(Evento evento) {
     }
 
+    /**
+     *  Asocia una nueva Partida al jugador
+     * @param game
+     */
     public void setPartida(Partida game) {
         this.game = game;
     }
+
+    /**
+     * Devuelve el nombre
+     * @return String
+     */
     @Override
     public String getNombre() {
         return "Local player";
     }
+
+    /**
+     * Indica si puede jugar al juego
+     * @param tablero
+     * @return True
+     */
     @Override
     public boolean puedeJugar(Tablero tablero) {
         return true;

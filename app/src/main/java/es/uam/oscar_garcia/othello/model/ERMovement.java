@@ -7,6 +7,11 @@ import logica_juego.MovimientoOthello;
  */
 
 public class ERMovement extends MovimientoOthello {
+    /**
+     * Constructor del Movimiento
+     * @param fila
+     * @param columna
+     */
     public ERMovement(int fila, int columna) {
         super(fila, columna);
     }

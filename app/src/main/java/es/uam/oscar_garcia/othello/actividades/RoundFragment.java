@@ -39,25 +39,45 @@ public class RoundFragment extends Fragment implements PartidaListener {
     private Partida game;
 
     private Callbacks callbacks;
+
+    /**
+     * Interfaz para comunicar fragment
+     */
     public interface Callbacks {
         void onRoundUpdated(Round round);
     }
 
+    /**
+     * Constructor de la clase RoundFragment
+     */
     public RoundFragment() {
         super();
     }
 
+    /**
+     * Vincula la actividad al fragmento
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         callbacks = (Callbacks) context;
     }
+
+    /**
+     * Desvincula al fragmento a la actividad
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         callbacks = null;
     }
 
+    /**
+     * Indetenfica al fragmento
+     * @param roundId
+     * @return
+     */
     public static RoundFragment newInstance(String roundId) {
         Bundle args = new Bundle();
         args.putString(ARG_ROUND_ID, roundId);
@@ -65,6 +85,11 @@ public class RoundFragment extends Fragment implements PartidaListener {
         roundFragment.setArguments(args);
         return roundFragment;
     }
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,16 +110,21 @@ public class RoundFragment extends Fragment implements PartidaListener {
         rootView.setBackgroundColor(Color.parseColor("#D1C4E9"));
         return rootView;
     }
+
+    /**
+     * Inicia la actividad cuando la crea Android
+     */
     @Override
     public void onStart() {
         super.onStart();
         startRound();
     }
 
-
+    /**
+     * Inicia una nueva partida y se la asigna a la vista
+     */
     void startRound() {
         ArrayList<Jugador> players = new ArrayList<Jugador>();
-        //JugadorAleatorio randomPlayer = new JugadorAleatorio(getView().getResources().getText(R.string.name_aleatorio));
         JugadorAleatorio randomPlayer = new JugadorAleatorio("Jugador aleatorio");
         ERLocalPlayer localPlayer = new ERLocalPlayer();
         players.add(randomPlayer);
@@ -111,7 +141,11 @@ public class RoundFragment extends Fragment implements PartidaListener {
 
     }
 
+    /**
+     * Inicia la funcionalidad del boton reset
+     */
     void registerListener(){
+
         FloatingActionButton resetButton = (FloatingActionButton)
                 getView().findViewById(R.id.reset_round_fab);
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +156,7 @@ public class RoundFragment extends Fragment implements PartidaListener {
                             Snackbar.LENGTH_SHORT).show();
                     return;
                 }
+
                 round.setBoard(new ERBoard(8));
                 boardView.setBoard(8,round.getBoard());
                 boardView.invalidate();
@@ -135,25 +170,10 @@ public class RoundFragment extends Fragment implements PartidaListener {
             });
     }
 
-
-/*
-    void startRound() {
-        ArrayList<Jugador> players = new ArrayList<Jugador>();
-        JugadorAleatorio randomPlayer = new JugadorAleatorio("Random player");
-        ERLocalPlayer localPlayer = new ERLocalPlayer();
-        players.add(randomPlayer);
-        players.add(localPlayer);
-        game = new Partida(round.getBoard(), players);
-        game.addObservador(this);
-        localPlayer.setPartida(game);
-        boardView = (ERView) getView().findViewById(R.id.board_erview);
-        boardView.setBoard(size, round.getBoard());
-        boardView.setOnPlayListener(localPlayer);
-        registerListeners();
-        if (game.getTablero().getEstado() == Tablero.EN_CURSO)
-            game.comenzar();
-    }*/
-
+    /**
+     * Actualiza el tablero o muestra como ha termiando la partida
+     * @param evento
+     */
     @Override
     public void onCambioEnPartida (Evento evento) {
         switch (evento.getTipo()) {
@@ -165,7 +185,10 @@ public class RoundFragment extends Fragment implements PartidaListener {
             case Evento.EVENTO_FIN:
                 boardView.invalidate();
                 callbacks.onRoundUpdated(round);
-                if(round.getBoard().getTurno()==1){
+                if(round.getBoard().getEstado() == Tablero.TABLAS){
+                    Snackbar.make(getView(), R.string.draw, Snackbar.LENGTH_SHORT).show();
+                }
+                else if(round.getBoard().getTurno()==1){
                     Snackbar.make(getView(), R.string.win, Snackbar.LENGTH_SHORT).show();
                 }else{
                     Snackbar.make(getView(), R.string.game_over, Snackbar.LENGTH_SHORT).show();
