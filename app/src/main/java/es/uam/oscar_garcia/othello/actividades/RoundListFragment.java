@@ -61,6 +61,11 @@ public class RoundListFragment extends Fragment {
         inflater.inflate(R.menu.menu, menu);
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_round:
@@ -77,30 +82,34 @@ public class RoundListFragment extends Fragment {
 
     public class RoundHolder extends RecyclerView.ViewHolder  {
         private TextView idTextView;
-        //private TextView boardTextView;
+        private TextView j1TextView;
+        private TextView j2TextView;
         private TextView dateTextView;
         private Round round;
 
-
+        /**
+         * Constructor asigna los elemento de la vista a variables
+         * @param itemView
+         */
         public RoundHolder(View itemView) {
             super(itemView);
-            //itemView.setOnClickListener(this);
             idTextView = (TextView) itemView.findViewById(R.id.list_item_id);
-            // boardTextView = (TextView) itemView.findViewById(R.id.list_item_board);
+            j1TextView = (TextView) itemView.findViewById(R.id.list_item_j1);
+            j2TextView = (TextView) itemView.findViewById(R.id.list_item_j2);
             dateTextView = (TextView) itemView.findViewById(R.id.list_item_date);
         }
+
+        /**
+         * Reasigna el valor correspondiente
+         * @param round
+         */
         public void bindRound(Round round){
             this.round = round;
             idTextView.setText(round.getTitle());
-            // boardTextView.setText(round.getBoard().toSimpleString());
+            j1TextView.setText("G "+Integer.toString(round.getBoard().getNumFichasJ1()));
+            j2TextView.setText("R "+Integer.toString(round.getBoard().getNumFichasJ2()));
             dateTextView.setText(String.valueOf(round.getDate()).substring(0,19));
-        }/*
-        public void onClick(View v) {
-            Context context = v.getContext();
-            Intent intent = RoundActivity.newIntent(context, round.getId());
-            context.startActivity(intent);
-        }*/
-       // public void onClick(View v) {     callbacks.onRoundSelected(round); }
+        }
     }
 
     public class RoundAdapter extends RecyclerView.Adapter<RoundHolder> {
@@ -164,6 +173,10 @@ public class RoundListFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+
+    /**
+     * Actualiza la interfaz grafica
+     */
     protected void updateUI() {
         RoundRepository repository = RoundRepository.get(getActivity());
         List<Round> rounds = repository.getRounds();

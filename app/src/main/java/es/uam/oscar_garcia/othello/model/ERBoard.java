@@ -7,15 +7,17 @@ import logica_juego.TableroOthello;
  */
 
 public class ERBoard extends TableroOthello {
+    final private int size;
     public static final int JUGADOR1 = 1;
     public static final int JUGADOR2 = 2;
 
     /**
      * Constructor del tablero
-     * @param size
+     * @param size tamano del tablero
      */
     public ERBoard(int size){
-        super();
+       super();
+       this.size=size;
     }
 
     /**
@@ -26,5 +28,43 @@ public class ERBoard extends TableroOthello {
      */
     public int getTablero(int i, int j) {
         return super.getTab()[i][j];
+    }
+
+    /**
+     * Devuelve el numero fichas del Jugador 1
+     * @return int
+     */
+    public int getNumFichasJ1(){
+        int tablero[][]=super.getTab();
+        int sum=0,i,j;
+
+        for(i=0;i<size;i++){
+            for(j=0;j<size;j++){
+                if(tablero[i][j]==JUGADOR1){
+                   sum++;
+                }
+            }
+        }
+
+        return sum;
+    }
+
+    /**
+     * Devuelve el numero fichas del Jugador 2
+     * @return int 
+     */
+    public int getNumFichasJ2(){
+        int tablero[][]=super.getTab();
+        int sum=0,i,j;
+
+        for(i=0;i<size;i++){
+            for(j=0;j<size;j++){
+                if(tablero[i][j]==JUGADOR2){
+                    sum++;
+                }
+            }
+        }
+
+        return sum;
     }
 }
