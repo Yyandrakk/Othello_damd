@@ -20,10 +20,10 @@ import es.uam.eps.multij.Partida;
 import es.uam.eps.multij.PartidaListener;
 import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.R;
-import es.uam.oscar_garcia.othello.model.ERBoard;
+import es.uam.oscar_garcia.othello.model.OthelloBoard;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
-import es.uam.oscar_garcia.othello.views.ERView;
+import es.uam.oscar_garcia.othello.views.OthelloView;
 
 
 /**
@@ -32,7 +32,7 @@ import es.uam.oscar_garcia.othello.views.ERView;
 
 public class RoundFragment extends Fragment implements PartidaListener {
 
-    ERView boardView;
+    OthelloView boardView;
     public static final String ARG_ROUND_ID = "es.uam.eps.dadm.er10.round_id";
     private int size=8;
     private Round round;
@@ -126,13 +126,13 @@ public class RoundFragment extends Fragment implements PartidaListener {
     void startRound() {
         ArrayList<Jugador> players = new ArrayList<Jugador>();
         JugadorAleatorio randomPlayer = new JugadorAleatorio("Jugador aleatorio");
-        ERLocalPlayer localPlayer = new ERLocalPlayer();
+        OthelloLocalPlayer localPlayer = new OthelloLocalPlayer();
         players.add(randomPlayer);
         players.add(localPlayer);
         game = new Partida(round.getBoard(), players);
         game.addObservador(this);
         localPlayer.setPartida(game);
-        boardView = (ERView) getView().findViewById(R.id.board_erview);
+        boardView = (OthelloView) getView().findViewById(R.id.board_erview);
         boardView.setBoard(size, round.getBoard());
         boardView.setOnPlayListener(localPlayer);
         registerListener();
@@ -157,7 +157,7 @@ public class RoundFragment extends Fragment implements PartidaListener {
                     return;
                 }
 
-                round.setBoard(new ERBoard(8));
+                round.setBoard(new OthelloBoard(8));
                 boardView.setBoard(8,round.getBoard());
                 boardView.invalidate();
                 callbacks.onRoundUpdated(round);

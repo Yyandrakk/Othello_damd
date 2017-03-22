@@ -5,11 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import java.util.List;
 
 import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.model.Round;
@@ -71,6 +67,12 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
         RoundListFragment roundListFragment = (RoundListFragment)
                 fragmentManager.findFragmentById(R.id.fragment_container);
         roundListFragment.updateUI();
+    }
+
+    @Override
+    public void onPreferencesSelected() {
+        Intent intent = new Intent(this, OthelloPreferenceActivity.class);
+        startActivity(intent);
     }
 
 }

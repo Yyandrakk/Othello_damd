@@ -3,8 +3,6 @@ package es.uam.oscar_garcia.othello.model;
 import java.util.Date;
 import java.util.UUID;
 
-import es.uam.oscar_garcia.othello.R;
-
 /**
  * Created by oscar on 1/03/17.
  */
@@ -15,7 +13,7 @@ public class Round {
     private String id;
     private String title;
     private String date;
-    private ERBoard board;
+    private OthelloBoard board;
 
     /**
      *
@@ -27,7 +25,7 @@ public class Round {
         title = "ROUND " + id.toString().substring(19, 23).toUpperCase();
         //title = getString(R.string.round_name) + id.toString().substring(19, 23).toUpperCase();
         date = new Date().toString();
-        board = new ERBoard(size);
+        board = new OthelloBoard(size);
     }
 
     /**
@@ -73,10 +71,10 @@ public class Round {
     public void setDate(String date) {
         this.date = date;
     }
-    public ERBoard getBoard() {
+    public OthelloBoard getBoard() {
         return board;
     }
-    public void setBoard(ERBoard board) {
+    public void setBoard(OthelloBoard board) {
         this.board = board;
     }
 

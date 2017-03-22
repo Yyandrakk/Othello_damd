@@ -11,11 +11,16 @@
         <activity android:name=".actividades.RoundListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".actividades.RoundActivity"
-            android:parentActivityName=".actividades.RoundListActivity"/>
+        <activity
+            android:name=".actividades.RoundActivity"
+            android:parentActivityName=".actividades.RoundListActivity" />
+        <activity android:name=".actividades.OthelloPreferenceActivity"
+            android:parentActivityName=".actividades.RoundListActivity" />
+
     </application>
 
 </manifest>

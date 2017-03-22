@@ -6,7 +6,7 @@ import logica_juego.TableroOthello;
  * Created by oscar on 1/03/17.
  */
 
-public class ERBoard extends TableroOthello {
+public class OthelloBoard extends TableroOthello {
     final private int size;
     public static final int JUGADOR1 = 1;
     public static final int JUGADOR2 = 2;
@@ -15,7 +15,7 @@ public class ERBoard extends TableroOthello {
      * Constructor del tablero
      * @param size tamano del tablero
      */
-    public ERBoard(int size){
+    public OthelloBoard(int size){
        super();
        this.size=size;
     }

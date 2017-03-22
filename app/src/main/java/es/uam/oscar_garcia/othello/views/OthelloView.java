@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +14,8 @@ import java.util.ArrayList;
 
 import es.uam.eps.multij.Movimiento;
 import es.uam.eps.multij.Tablero;
-import es.uam.oscar_garcia.othello.model.ERBoard;
+import es.uam.oscar_garcia.othello.actividades.OthelloPreferenceActivity;
+import es.uam.oscar_garcia.othello.model.OthelloBoard;
 import logica_juego.MovimientoOthello;
 
 
@@ -23,7 +23,7 @@ import logica_juego.MovimientoOthello;
  * Created by oscar on 1/03/17.
  */
 
-public class ERView extends View {
+public class OthelloView extends View {
 
     private final String DEBUG = "ERView";
     private final int VACIA_C=Color.parseColor("#D1C4E9");
@@ -39,14 +39,14 @@ public class ERView extends View {
     private float widthOfTile;
     private float radio;
     private int size=8;
-    private ERBoard board;
+    private OthelloBoard board;
     OnPlayListener onPlayListener;
 
     /**
      * Constructor de ERView
      * @param context
      */
-    public ERView(Context context) {
+    public OthelloView(Context context) {
         super(context);
         init();
     }
@@ -56,7 +56,7 @@ public class ERView extends View {
      * @param context
      * @param attrs
      */
-    public ERView(Context context, AttributeSet attrs) {
+    public OthelloView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -67,7 +67,7 @@ public class ERView extends View {
      * @param attrs
      * @param defStyleAttr
      */
-    public ERView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public OthelloView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -80,7 +80,7 @@ public class ERView extends View {
      * @param defStyleRes
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public ERView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public OthelloView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -90,7 +90,7 @@ public class ERView extends View {
      */
     private void init() {
 
-        this.board=new ERBoard(8);
+        this.board=new OthelloBoard(8);
         backgroundPaint.setColor(TABLERO_C);
 
         linePaint.setStrokeWidth(2);
@@ -169,11 +169,11 @@ public class ERView extends View {
         }
 
     private void setPaintColor(Paint paint, int i, int j,boolean valido) {
-        if(valido)
+        if(OthelloPreferenceActivity.getMovValido(getContext())&&valido)
             paint.setColor(POSIBLE_C);
-        else if (board.getTablero(i, j) == ERBoard.JUGADOR1)
+        else if (board.getTablero(i, j) == OthelloBoard.JUGADOR1)
             paint.setColor(JUG1_C);
-        else if (board.getTablero(i, j) == ERBoard.JUGADOR2)
+        else if (board.getTablero(i, j) == OthelloBoard.JUGADOR2)
             paint.setColor(JUG2_C);
         else{
             paint.setColor(VACIA_C);
@@ -204,7 +204,7 @@ public class ERView extends View {
         return (int) (event.getX() / widthOfTile);
     }
 
-    public void setBoard(int size, ERBoard board) {
+    public void setBoard(int size, OthelloBoard board) {
         this.size = size;
         this.board = board;
     }

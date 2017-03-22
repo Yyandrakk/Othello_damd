@@ -14,4 +14,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="settings_title">Settings the game</string>
+    <string name="settings_mov_sumary">Click if you need help in game</string>
+    <string name="settings_mov_title">Help movement valid</string>
+
 </resources>

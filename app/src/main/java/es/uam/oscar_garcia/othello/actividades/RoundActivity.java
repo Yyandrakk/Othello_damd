@@ -8,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import es.uam.eps.multij.Partida;
-import es.uam.eps.multij.PartidaListener;
-import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.R;
-import es.uam.oscar_garcia.othello.model.ERBoard;
+import es.uam.oscar_garcia.othello.model.OthelloBoard;
 import es.uam.oscar_garcia.othello.model.Round;
 
 
@@ -20,7 +18,7 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
     public static final String BOARDSTRING = "es.uam.eps.dadm.er8.grid";
     public static final String EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id";
     private Partida game;
-    private ERBoard board;
+    private OthelloBoard board;
     private int size;
     private Round round;
 

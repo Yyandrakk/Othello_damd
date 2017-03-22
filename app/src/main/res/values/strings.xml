@@ -14,4 +14,7 @@
     <string name="navigation_drawer_close">Cerrar barra de navegacion</string>
 
     <string name="action_settings">Opciones</string>
+    <string name="settings_title">Ajustes del juego</string>
+    <string name="settings_mov_sumary">Pulsa si necesitas ayuda al jugar</string>
+    <string name="settings_mov_title">Ayuda movimiento valido</string>
 </resources>

@@ -43,6 +43,7 @@ public class RoundListFragment extends Fragment {
 
     public interface Callbacks {
         void onRoundSelected(Round round);
+        void onPreferencesSelected();
     }
 
 
@@ -69,14 +70,17 @@ public class RoundListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_round:
-                Round round = new Round(RoundRepository.SIZE);
+                Round round = new
+                        Round(Integer.parseInt(OthelloPreferenceActivity.getBoardSize(getActivity())));
                 RoundRepository.get(getActivity()).addRound(round);
                 updateUI();
+                return true;
+            case R.id.menu_item_settings:
+                callbacks.onPreferencesSelected();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
 
