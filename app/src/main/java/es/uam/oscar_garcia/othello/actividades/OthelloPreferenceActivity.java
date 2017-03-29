@@ -20,6 +20,8 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
     public final static String BOARDSIZE_DEFAULT = "0";
     public final static String MOVALI_KEY = "movalido";
     public final static boolean MOVALI_DEFAULT = true;
+    public static final Object PLAYERNAME_DEFAULT = ;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
@@ -48,4 +50,6 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
     }
 
 
+    public static Configuration getPlayerName(LoginActivity loginActivity) {
+    }
 }

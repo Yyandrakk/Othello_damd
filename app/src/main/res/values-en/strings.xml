@@ -17,5 +17,7 @@
     <string name="settings_title">Settings the game</string>
     <string name="settings_mov_sumary">Click if you need help in game</string>
     <string name="settings_mov_title">Help movement valid</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
 
 </resources>

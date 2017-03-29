@@ -10,22 +10,25 @@ import java.util.UUID;
 public class Round {
 
     private int size=8;
+    private UUID player1;
     private String id;
     private String title;
     private String date;
     private OthelloBoard board;
-
+    private String firstPlayerName;
+    private String secondPlayerName;
     /**
      *
      * @param size
      */
-    public Round(int size) {
+    public Round(int size,UUID player) {
         this.size = size;
         id = UUID.randomUUID().toString();
         title = "ROUND " + id.toString().substring(19, 23).toUpperCase();
         //title = getString(R.string.round_name) + id.toString().substring(19, 23).toUpperCase();
         date = new Date().toString();
         board = new OthelloBoard(size);
+        player1=player;
     }
 
     /**
@@ -78,4 +81,15 @@ public class Round {
         this.board = board;
     }
 
+    public UUID getPlayerUUID() {
+        return player1;
+    }
+
+    public void setFirstPlayerName(String firstPlayerName) {
+        this.firstPlayerName = firstPlayerName;
+    }
+
+    public void setSecondPlayerName(String secondPlayerName) {
+        this.secondPlayerName = secondPlayerName;
+    }
 }

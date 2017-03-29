@@ -12,7 +12,9 @@ import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 import java.util.UUID;
 
 import es.uam.oscar_garcia.othello.model.Round;
@@ -148,10 +150,10 @@ public class OthelloDataBase implements RoundRepository {
 
         private ContentValues getContentValues(Round round) {
             ContentValues values = new ContentValues();
-            values.put(RoundTable.Cols.PLAYERUUID, round.getPlayerUUID());
+            values.put(RoundTable.Cols.PLAYERUUID, round.getPlayerUUID().toString());
             values.put(RoundTable.Cols.BOARD,round.getBoard().tableroToString());
             values.put(RoundTable.Cols.DATE,round.getDate());
-            values.put(RoundTable.Cols.ROUNDUUID,round.getDate());
+            values.put(RoundTable.Cols.ROUNDUUID,round.getId());
             return values;
 
         }
@@ -165,11 +167,45 @@ public class OthelloDataBase implements RoundRepository {
         }
 
         @Override
-        public void updateRound(Round round, BooleanCallback callback) { ...}
+        public void updateRound(Round round, BooleanCallback callback) {
+            ContentValues values = new ContentValues();
+            values.put(RoundTable.Cols.BOARD,round.getBoard().tableroToString());
+            long id = db.update(RoundTable.NAME,values,RoundTable.Cols.ROUNDUUID+"="+round.getId(),null);
+            if (callback != null)
+                callback.onResponse(id >= 0);
+        }
 
-        private RoundCursorWrapper queryRounds() { ...}
+    private RoundCursorWrapper queryRounds() {
+        String sql = "SELECT " + UserTable.Cols.PLAYERNAME + ", " +
+                UserTable.Cols.PLAYERUUID + ", " +
+                RoundTable.Cols.ROUNDUUID + ", " +
+                RoundTable.Cols.DATE + ", " +
+                RoundTable.Cols.TITLE + ", " +
+                RoundTable.Cols.BOARD + " " +
+                "FROM " + UserTable.NAME + " AS p, " +
+                RoundTable.NAME + " AS r " +
+                "WHERE " + "p." + UserTable.Cols.PLAYERUUID + "=" +
+                "r." + RoundTable.Cols.PLAYERUUID + ";";
+        Cursor cursor = db.rawQuery(sql, null);
+        return new RoundCursorWrapper(cursor);
+    }
 
-        @Override
-        public void getRounds(String playeruuid, String orderByField, String group,
-                              RoundsCallback callback) { ...}
+    @Override
+    public void getRounds(String playeruuid, String orderByField, String group,
+                          RoundRepository.RoundsCallback callback) {
+        List<Round> rounds = new ArrayList<>();
+        RoundCursorWrapper cursor = queryRounds();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Round round = cursor.getRound();
+            if (round.getPlayerUUID().equals(playeruuid))
+                rounds.add(round);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        if (cursor.getCount() > 0)
+            callback.onResponse(rounds);
+        else
+            callback.onError("No rounds found in database");
+    }
 }
