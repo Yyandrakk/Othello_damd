@@ -6,7 +6,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +21,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.UUID;
 
 
 import es.uam.oscar_garcia.othello.R;
 
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
+import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 
 
 /**
@@ -40,6 +44,9 @@ public class RoundListFragment extends Fragment {
     private RecyclerView roundRecyclerView;
     private RoundAdapter roundAdapter;
     private Callbacks callbacks;
+
+
+
 
     public interface Callbacks {
         void onRoundSelected(Round round);
@@ -67,12 +74,27 @@ public class RoundListFragment extends Fragment {
      * @param item
      * @return
      */
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_round:
-                Round round = new
-                        Round(Integer.parseInt(OthelloPreferenceActivity.getBoardSize(getActivity())));
-                RoundRepository.get(getActivity()).addRound(round);
+        /* Instanciar una partida e inicializarla adecuadamente
+        Crear el repositorio
+        Instanciar un método callback de tipo BooleanCallback y llamar a
+        onNewRoundAdded de callbacks. */
+
+
+              RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
+                Round round = new Round(8, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())));
+                RoundRepository.BooleanCallback callback = new RoundRepository.BooleanCallback() {
+                    @Override
+                    public void onResponse(boolean response) {
+                        if (response == false)
+                            Snackbar.make(getView(), R.string.error_creating_round,
+                                    Snackbar.LENGTH_LONG).show();
+                    }
+                };
+                repository.addRound(round, callback);
                 updateUI();
                 return true;
             case R.id.menu_item_settings:
@@ -131,7 +153,9 @@ public class RoundListFragment extends Fragment {
             return new RoundHolder(view);
         }
 
-
+        public void setRounds(List<Round> r){
+            this.rounds=r;
+        }
 
         @Override
         public void onBindViewHolder(RoundHolder holder, int position) {
@@ -157,14 +181,28 @@ public class RoundListFragment extends Fragment {
         roundRecyclerView.setLayoutManager(linearLayoutManager);
         roundRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+
         roundRecyclerView.addOnItemTouchListener(new
                 RecyclerItemClickListener(getActivity(), new
                 RecyclerItemClickListener.OnItemClickListener() {
+
                     @Override
-                    public void onItemClick(View view, int position) {
-                        Round round =
-                                RoundRepository.get(getContext()).getRounds().get(position);
-                        callbacks.onRoundSelected(round);
+                    public void onItemClick(View view, final int position) {
+                        RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
+                        RoundRepository.RoundsCallback roundsCallback = new RoundRepository.RoundsCallback()
+                        {
+                            @Override
+                            public void onResponse(List<Round> rounds) {
+                                callbacks.onRoundSelected(rounds.get(position));
+                            }
+                            @Override
+                            public void onError(String error) {
+                                Snackbar.make(getView(), R.string.error_reading_rounds,
+                                        Snackbar.LENGTH_LONG).show();
+                            }
+                        };
+                        String playeruuid = OthelloPreferenceActivity.getPlayerUUID(getActivity());
+                        repository.getRounds(playeruuid, null, null, roundsCallback);
                     }
                 }));
     this.setHasOptionsMenu(true);
@@ -172,6 +210,8 @@ public class RoundListFragment extends Fragment {
         updateUI();
         return view;
     }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -182,15 +222,29 @@ public class RoundListFragment extends Fragment {
      * Actualiza la interfaz grafica
      */
     protected void updateUI() {
-        RoundRepository repository = RoundRepository.get(getActivity());
-        List<Round> rounds = repository.getRounds();
+        RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
 
-        if (roundAdapter == null) {
-            roundAdapter = new RoundAdapter(rounds);
-            roundRecyclerView.setAdapter(roundAdapter);
-        } else {
-            roundAdapter.notifyDataSetChanged();
-        }
+        RoundRepository.RoundsCallback callback =new RoundRepository.RoundsCallback() {
+            @Override
+            public void onResponse(List<Round> rounds) {
+                if (roundAdapter == null) {
+                    roundAdapter = new RoundAdapter(rounds);
+                    roundRecyclerView.setAdapter(roundAdapter);
+                } else {
+                    roundAdapter.setRounds(rounds);
+                    roundAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                //Snackbar.make(, error, Snackbar.LENGTH_SHORT).show();
+            }
+        };
+
+       repository.getRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),null,null,callback);
+
+
     }
 
 

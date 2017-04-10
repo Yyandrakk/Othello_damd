@@ -3,8 +3,10 @@ package es.uam.oscar_garcia.othello.actividades;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 public class LoginActivity extends Activity implements View.OnClickListener {
     private RoundRepository repository;
     private EditText usernameEditText;
+    private EditText passwordEditText;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return;
         }
         usernameEditText = (EditText) findViewById(R.id.login_username);
-        passwordEditText = (EditText) findViewById(R.id.login_password);
+        passwordEditText = (EditText) findViewById(R.id.login_registro);
         Button loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(this);
+        Button registerButton = (Button) findViewById(R.id.new_user_button);
+        registerButton.setOnClickListener(this);
+        CheckBox box = (CheckBox) findViewById(R.id.login_mostrar);
+        box.setOnClickListener(this);
 
         repository = RoundRepositoryFactory.createRepository(LoginActivity.this);
         if (repository == null)
@@ -44,33 +51,37 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         final String playername = usernameEditText.getText().toString();
         final String password = passwordEditText.getText().toString();
+        final View vaux=v;
         RoundRepository.LoginRegisterCallback loginRegisterCallback =
                 new RoundRepository.LoginRegisterCallback() {
                     @Override
                     public void onLogin(String playerId) {
-                        ERPreferenceActivity.setPlayerUUID(LoginActivity.this, playerId);
-                        ERPreferenceActivity.setPlayerName(LoginActivity.this, playername);
-                        ERPreferenceActivity.setPlayerPassword(LoginActivity.this, password);
+                        OthelloPreferenceActivity.setPlayerUUID(LoginActivity.this, playerId);
+                        OthelloPreferenceActivity.setPlayerName(LoginActivity.this, playername);
+                        OthelloPreferenceActivity.setPlayerPassword(LoginActivity.this, password);
                         startActivity(new Intent(LoginActivity.this, RoundListActivity.class));
                         finish();
                     }
 
                     @Override
                     public void onError(String error) {
+                        Snackbar.make(vaux, error, Snackbar.LENGTH_SHORT).show();
                     }
                 };
-    }
 
-    switch (v.getId()) {
-        case R.id.login_button:
-            repository.login(playername, password, loginRegisterCallback);
-            break;
-        case R.id.cancel_button:
-            finish();
-            break;
-        case R.id.new_user_button:
-            repository.register(playername, password, loginRegisterCallback);
-            break;
+
+        switch (v.getId()) {
+            case R.id.login_button:
+                repository.login(playername, password, loginRegisterCallback);
+                break;
+            case R.id.new_user_button:
+                repository.register(playername, password, loginRegisterCallback);
+                break;
+            case R.id.login_mostrar:
+
+                break;
+
+        }
     }
 
 }

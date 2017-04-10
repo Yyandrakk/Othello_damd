@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import es.uam.eps.multij.Movimiento;
 import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.actividades.OthelloPreferenceActivity;
+import es.uam.oscar_garcia.othello.model.MovimientoOthello;
 import es.uam.oscar_garcia.othello.model.OthelloBoard;
-import logica_juego.MovimientoOthello;
+
 
 
 /**

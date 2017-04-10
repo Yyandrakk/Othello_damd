@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import es.uam.eps.multij.Evento;
+import es.uam.eps.multij.ExcepcionJuego;
 import es.uam.eps.multij.Jugador;
 import es.uam.eps.multij.JugadorAleatorio;
 import es.uam.eps.multij.Partida;
@@ -23,7 +25,10 @@ import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.model.OthelloBoard;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
+import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 import es.uam.oscar_garcia.othello.views.OthelloView;
+
+import static es.uam.oscar_garcia.othello.actividades.RoundActivity.BOARDSTRING;
 
 
 /**
@@ -33,12 +38,24 @@ import es.uam.oscar_garcia.othello.views.OthelloView;
 public class RoundFragment extends Fragment implements PartidaListener {
 
     OthelloView boardView;
-    public static final String ARG_ROUND_ID = "es.uam.eps.dadm.er10.round_id";
+    public static final String DEBUG = "DEBUG";
+    public static final String ARG_ROUND_ID = "es.uam.eps.dadm.er18.round_id";
+    public static final String ARG_FIRST_PLAYER_NAME =
+            "es.uam.eps.dadm.er18.first_player_name";
+    public static final String ARG_ROUND_TITLE = "es.uam.eps.dadm.er18.round_title";
+    public static final String ARG_ROUND_DATE = "es.uam.eps.dadm.er18.round_date";
+    public static final String ARG_ROUND_BOARD = "es.uam.eps.dadm.er18.round_board";
     private int size=8;
     private Round round;
     private Partida game;
 
     private Callbacks callbacks;
+    private String roundId;
+    private String firstPlayerName;
+    private String roundTitle;
+    private String boardString;
+    private String roundDate;
+    private String roundBoard;
 
     /**
      * Interfaz para comunicar fragment
@@ -78,14 +95,28 @@ public class RoundFragment extends Fragment implements PartidaListener {
      * @param roundId
      * @return
      */
+    public static RoundFragment newInstance(String roundId, String firstPlayerName,
+                                            String roundTitle, String roundDate, String roundBoard) {
+        Bundle args = new Bundle();
+        args.putString(ARG_ROUND_ID, roundId);
+        args.putString(ARG_FIRST_PLAYER_NAME, firstPlayerName);
+        args.putString(ARG_ROUND_TITLE, roundTitle);
+        args.putString(ARG_ROUND_DATE, roundDate);
+        args.putString(ARG_ROUND_BOARD,roundBoard);
+
+        RoundFragment roundFragment = new RoundFragment();
+        roundFragment.setArguments(args);
+        return roundFragment;
+    }/*
     public static RoundFragment newInstance(String roundId) {
         Bundle args = new Bundle();
         args.putString(ARG_ROUND_ID, roundId);
         RoundFragment roundFragment = new RoundFragment();
         roundFragment.setArguments(args);
         return roundFragment;
-    }
+    }*/
 
+    
     /**
      *
      * @param savedInstanceState
@@ -94,11 +125,53 @@ public class RoundFragment extends Fragment implements PartidaListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ROUND_ID)) {
+            roundId = getArguments().getString(ARG_ROUND_ID);
+        }
+        if (getArguments().containsKey(ARG_FIRST_PLAYER_NAME)) {
+            firstPlayerName = getArguments().getString(ARG_FIRST_PLAYER_NAME);
+        }
+        if (getArguments().containsKey(ARG_ROUND_TITLE)) {
+            roundTitle = getArguments().getString(ARG_ROUND_TITLE);
+        }
+        if (getArguments().containsKey(ARG_ROUND_DATE)) {
+            roundDate = getArguments().getString(ARG_ROUND_DATE);
+        }
+        if (getArguments().containsKey(ARG_ROUND_BOARD)) {
+            roundBoard = getArguments().getString(ARG_ROUND_DATE);
+        }
+        if (savedInstanceState != null)
+            boardString = savedInstanceState.getString(BOARDSTRING);
+    }
+    /*@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments().containsKey(ARG_ROUND_ID)) {
             String roundId = getArguments().getString(ARG_ROUND_ID);
             round = RoundRepository.get(getActivity()).getRound(roundId);
             size = round.getSize();
         }
+    }*/
+
+
+
+    private Round createRound() {
+        Round round = new Round(size, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())));
+        //round.setPlayerUUID(ERPreferenceActivity.getPlayerUUID(getActivity()));
+        round.setId(roundId);
+        round.setFirstPlayerName("random");
+        round.setSecondPlayerName(firstPlayerName);
+        round.setDate(roundDate);
+        round.setTitle(roundTitle);
+        OthelloBoard board=new OthelloBoard(size);
+        try {
+            board.stringToTablero(boardString);
+        } catch (ExcepcionJuego excepcionJuego) {
+            excepcionJuego.printStackTrace();
+        }
+        round.setBoard(board);
+        return round;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

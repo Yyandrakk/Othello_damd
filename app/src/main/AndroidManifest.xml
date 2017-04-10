@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".actividades.RoundListActivity">
+        <activity android:name=".actividades.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +24,10 @@
             android:name=".actividades.RoundActivity"
             android:parentActivityName=".actividades.RoundListActivity" />
         <activity
+            android:name=".actividades.RoundListActivity"/>
+        <activity
             android:name=".actividades.OthelloPreferenceActivity"
             android:parentActivityName=".actividades.RoundListActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

@@ -51,7 +51,7 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
             Intent intent = RoundActivity.newIntent(this, round.getId());
             startActivity(intent);
         } else {
-            RoundFragment roundFragment = RoundFragment.newInstance(round.getId());
+            RoundFragment roundFragment = RoundFragment.newInstance(round.getId(),OthelloPreferenceActivity.getPlayerName(this),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_fragment_container, roundFragment)
                     .commit();

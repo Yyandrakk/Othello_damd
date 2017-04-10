@@ -6,7 +6,7 @@ import es.uam.eps.multij.Evento;
 import es.uam.eps.multij.Jugador;
 import es.uam.eps.multij.Partida;
 import es.uam.eps.multij.Tablero;
-import es.uam.oscar_garcia.othello.model.OthelloMovement;
+import es.uam.oscar_garcia.othello.model.MovimientoOthello;
 import es.uam.oscar_garcia.othello.views.OthelloView;
 
 
@@ -33,8 +33,8 @@ public class OthelloLocalPlayer implements  Jugador, OthelloView.OnPlayListener 
             if (game.getTablero().getEstado() != Tablero.EN_CURSO) {
                 return;
             }
-            OthelloMovement m;
-            m = new OthelloMovement(row, column);
+            MovimientoOthello m;
+            m = new MovimientoOthello(row, column);
             game.realizaAccion(new AccionMover(this, m));
         } catch (Exception e) {
         }

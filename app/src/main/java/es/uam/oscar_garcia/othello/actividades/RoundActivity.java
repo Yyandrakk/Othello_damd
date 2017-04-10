@@ -2,6 +2,7 @@ package es.uam.oscar_garcia.othello.actividades;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,13 @@ import es.uam.oscar_garcia.othello.model.Round;
 public class RoundActivity extends AppCompatActivity implements RoundFragment.Callbacks {
 
     public static final String BOARDSTRING = "es.uam.eps.dadm.er8.grid";
-    public static final String EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id";
+
+    public static final String EXTRA_ROUND_ID = "es.uam.eps.dadm.er18.round_id";
+    public static final String EXTRA_FIRST_PLAYER_NAME =
+            "es.uam.eps.dadm.er18.first_player_name";
+    public static final String EXTRA_ROUND_TITLE = "es.uam.eps.dadm.er18.round_title";
+    public static final String EXTRA_ROUND_DATE = "es.uam.eps.dadm.er18.round_date";
+    public static final String EXTRA_ROUND_BOARD = "es.uam.eps.dadm.er18.round_board";
     private Partida game;
     private OthelloBoard board;
     private int size;
@@ -34,7 +41,10 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
             String roundId = getIntent().getStringExtra(EXTRA_ROUND_ID);
-            RoundFragment roundFragment = RoundFragment.newInstance(roundId);
+            String roundTitle = getIntent().getStringExtra(EXTRA_ROUND_TITLE);
+            String roundDate = getIntent().getStringExtra(EXTRA_ROUND_DATE);
+            String roundBoard = getIntent().getStringExtra(EXTRA_ROUND_BOARD);
+            RoundFragment roundFragment = RoundFragment.newInstance(roundId,OthelloPreferenceActivity.getPlayerName(this),roundTitle,roundDate,roundBoard);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, roundFragment)
                     .commit();

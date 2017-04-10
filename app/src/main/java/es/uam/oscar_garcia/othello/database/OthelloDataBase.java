@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 
@@ -17,9 +18,11 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.UUID;
 
+import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
 import es.uam.oscar_garcia.othello.database.RoundDataBaseSchema.*;
+import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 
 /**
  * Created by oscar on 22/03/17.
@@ -33,6 +36,7 @@ public class OthelloDataBase implements RoundRepository {
     private SQLiteDatabase db;
 
     public OthelloDataBase(Context context) {
+        helper = new DatabaseHelper(context);
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -145,7 +149,6 @@ public class OthelloDataBase implements RoundRepository {
             else
                 callback.onLogin(uuid);
 
-
         }
 
         private ContentValues getContentValues(Round round) {
@@ -208,4 +211,17 @@ public class OthelloDataBase implements RoundRepository {
         else
             callback.onError("No rounds found in database");
     }
+    /*private void updateRound() {
+        Round round = createRound();
+        RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
+        RoundRepository.BooleanCallback callback = new RoundRepository.BooleanCallback() {
+            @Override
+            public void onResponse(boolean response) {
+                if (response == false)
+                    Snackbar.make(getView(), R.string.error_updating_round,
+                            Snackbar.LENGTH_LONG).show();
+            }
+        };
+        repository.updateRound(round, callback);
+    }*/
 }
