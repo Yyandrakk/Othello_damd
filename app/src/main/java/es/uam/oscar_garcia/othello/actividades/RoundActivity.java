@@ -41,10 +41,11 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
             String roundId = getIntent().getStringExtra(EXTRA_ROUND_ID);
+            String roudnPlayer= getIntent().getStringExtra(EXTRA_FIRST_PLAYER_NAME);
             String roundTitle = getIntent().getStringExtra(EXTRA_ROUND_TITLE);
             String roundDate = getIntent().getStringExtra(EXTRA_ROUND_DATE);
             String roundBoard = getIntent().getStringExtra(EXTRA_ROUND_BOARD);
-            RoundFragment roundFragment = RoundFragment.newInstance(roundId,OthelloPreferenceActivity.getPlayerName(this),roundTitle,roundDate,roundBoard);
+            RoundFragment roundFragment = RoundFragment.newInstance(roundId,roudnPlayer,roundTitle,roundDate,roundBoard);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, roundFragment)
                     .commit();
@@ -57,9 +58,14 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
      * @param roundId
      * @return
      */
-    public static Intent newIntent(Context packageContext, String roundId){
+    public static Intent newIntent(Context packageContext, String roundId, String firstPlayerName,
+                                   String roundTitle, String roundDate, String roundBoard){
         Intent intent = new Intent(packageContext, RoundActivity.class);
         intent.putExtra(EXTRA_ROUND_ID, roundId);
+        intent.putExtra(EXTRA_FIRST_PLAYER_NAME, firstPlayerName);
+        intent.putExtra(EXTRA_ROUND_TITLE, roundTitle);
+        intent.putExtra(EXTRA_ROUND_DATE, roundDate);
+        intent.putExtra(EXTRA_ROUND_BOARD,roundBoard);
         return intent;
     }
 

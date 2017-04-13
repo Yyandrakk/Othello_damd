@@ -31,7 +31,7 @@ import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 public class OthelloDataBase implements RoundRepository {
     private final String DEBUG_TAG = "DEBUG";
     private static final String DATABASE_NAME = "othello.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     private DatabaseHelper helper;
     private SQLiteDatabase db;
 
@@ -155,6 +155,7 @@ public class OthelloDataBase implements RoundRepository {
             ContentValues values = new ContentValues();
             values.put(RoundTable.Cols.PLAYERUUID, round.getPlayerUUID().toString());
             values.put(RoundTable.Cols.BOARD,round.getBoard().tableroToString());
+            values.put(RoundTable.Cols.TITLE,round.getTitle());
             values.put(RoundTable.Cols.DATE,round.getDate());
             values.put(RoundTable.Cols.ROUNDUUID,round.getId());
             return values;
@@ -171,9 +172,9 @@ public class OthelloDataBase implements RoundRepository {
 
         @Override
         public void updateRound(Round round, BooleanCallback callback) {
-            ContentValues values = new ContentValues();
-            values.put(RoundTable.Cols.BOARD,round.getBoard().tableroToString());
-            long id = db.update(RoundTable.NAME,values,RoundTable.Cols.ROUNDUUID+"="+round.getId(),null);
+            ContentValues values = getContentValues(round);
+
+            long id = db.update(RoundTable.NAME,values,"rounduuid=?",new String[]{round.getId()});
             if (callback != null)
                 callback.onResponse(id >= 0);
         }
@@ -201,7 +202,7 @@ public class OthelloDataBase implements RoundRepository {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Round round = cursor.getRound();
-            if (round.getPlayerUUID().equals(playeruuid))
+            if (round.getPlayerUUID().toString().equals(playeruuid))
                 rounds.add(round);
             cursor.moveToNext();
         }

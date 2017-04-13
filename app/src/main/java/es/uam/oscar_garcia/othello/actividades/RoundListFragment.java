@@ -51,6 +51,7 @@ public class RoundListFragment extends Fragment {
     public interface Callbacks {
         void onRoundSelected(Round round);
         void onPreferencesSelected();
+        void onNewRoundAdded();
     }
 
 
@@ -89,13 +90,19 @@ public class RoundListFragment extends Fragment {
                 RoundRepository.BooleanCallback callback = new RoundRepository.BooleanCallback() {
                     @Override
                     public void onResponse(boolean response) {
-                        if (response == false)
+
+                        if (response == false){
                             Snackbar.make(getView(), R.string.error_creating_round,
                                     Snackbar.LENGTH_LONG).show();
+                        }else{
+                            updateUI();
+                            callbacks.onNewRoundAdded();
+                        }
+
                     }
                 };
                 repository.addRound(round, callback);
-                updateUI();
+
                 return true;
             case R.id.menu_item_settings:
                 callbacks.onPreferencesSelected();

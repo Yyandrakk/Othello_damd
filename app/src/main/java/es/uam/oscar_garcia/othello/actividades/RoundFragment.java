@@ -53,9 +53,8 @@ public class RoundFragment extends Fragment implements PartidaListener {
     private String roundId;
     private String firstPlayerName;
     private String roundTitle;
-    private String boardString;
     private String roundDate;
-    private String roundBoard;
+    private String roundB;
 
     /**
      * Interfaz para comunicar fragment
@@ -107,20 +106,8 @@ public class RoundFragment extends Fragment implements PartidaListener {
         RoundFragment roundFragment = new RoundFragment();
         roundFragment.setArguments(args);
         return roundFragment;
-    }/*
-    public static RoundFragment newInstance(String roundId) {
-        Bundle args = new Bundle();
-        args.putString(ARG_ROUND_ID, roundId);
-        RoundFragment roundFragment = new RoundFragment();
-        roundFragment.setArguments(args);
-        return roundFragment;
-    }*/
+    }
 
-    
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,10 +124,9 @@ public class RoundFragment extends Fragment implements PartidaListener {
             roundDate = getArguments().getString(ARG_ROUND_DATE);
         }
         if (getArguments().containsKey(ARG_ROUND_BOARD)) {
-            roundBoard = getArguments().getString(ARG_ROUND_DATE);
+            roundB = getArguments().getString(ARG_ROUND_BOARD);
         }
-        if (savedInstanceState != null)
-            boardString = savedInstanceState.getString(BOARDSTRING);
+        round=createRound();
     }
     /*@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,23 +138,35 @@ public class RoundFragment extends Fragment implements PartidaListener {
         }
     }*/
 
+    private void updateRound() {
+        //Round round = createRound();
+        RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
+        RoundRepository.BooleanCallback callback = new RoundRepository.BooleanCallback() {
+            @Override
+            public void onResponse(boolean response) {
+                if (response == false)
+                    Snackbar.make(getView(), R.string.error_updating_round,
+                            Snackbar.LENGTH_LONG).show();
+            }
+        };
+        repository.updateRound(round, callback);
+    }
 
 
     private Round createRound() {
         Round round = new Round(size, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())));
-        //round.setPlayerUUID(ERPreferenceActivity.getPlayerUUID(getActivity()));
+        round.setPlayerUUID(OthelloPreferenceActivity.getPlayerUUID(getActivity()));
         round.setId(roundId);
         round.setFirstPlayerName("random");
         round.setSecondPlayerName(firstPlayerName);
         round.setDate(roundDate);
         round.setTitle(roundTitle);
-        OthelloBoard board=new OthelloBoard(size);
+
         try {
-            board.stringToTablero(boardString);
+            round.getBoard().stringToTablero(roundB);
         } catch (ExcepcionJuego excepcionJuego) {
             excepcionJuego.printStackTrace();
         }
-        round.setBoard(board);
         return round;
     }
 
@@ -254,10 +252,12 @@ public class RoundFragment extends Fragment implements PartidaListener {
                 this.boardView.setBoard(8,round.getBoard());
                 boardView.invalidate();
                 callbacks.onRoundUpdated(round);
+                updateRound();
                 break;
             case Evento.EVENTO_FIN:
                 boardView.invalidate();
                 callbacks.onRoundUpdated(round);
+                updateRound();
                 if(round.getBoard().getEstado() == Tablero.TABLAS){
                     Snackbar.make(getView(), R.string.draw, Snackbar.LENGTH_SHORT).show();
                 }

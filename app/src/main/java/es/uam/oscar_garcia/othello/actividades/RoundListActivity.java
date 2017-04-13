@@ -48,7 +48,7 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
     @Override
     public void onRoundSelected(Round round) {
         if (findViewById(R.id.detail_fragment_container) == null) {
-            Intent intent = RoundActivity.newIntent(this, round.getId());
+            Intent intent = RoundActivity.newIntent(this, round.getId(),round.getPlayerUUID().toString(),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
             startActivity(intent);
         } else {
             RoundFragment roundFragment = RoundFragment.newInstance(round.getId(),OthelloPreferenceActivity.getPlayerName(this),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
@@ -73,6 +73,14 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
     public void onPreferencesSelected() {
         Intent intent = new Intent(this, OthelloPreferenceActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onNewRoundAdded() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        RoundListFragment roundListFragment = (RoundListFragment)
+                fragmentManager.findFragmentById(R.id.fragment_container);
+        roundListFragment.updateUI();
     }
 
 }
