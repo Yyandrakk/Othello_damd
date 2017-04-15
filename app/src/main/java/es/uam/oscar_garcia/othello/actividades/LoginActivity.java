@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,7 +20,7 @@ import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
  * Created by oscar on 29/03/17.
  */
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private RoundRepository repository;
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -75,10 +77,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 repository.login(playername, password, loginRegisterCallback);
                 break;
             case R.id.new_user_button:
-                repository.register(playername, password, loginRegisterCallback);
+                startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
                 break;
             case R.id.login_mostrar:
-
+                CheckBox checkbox1=(CheckBox)findViewById(R.id.login_mostrar);
+                if (checkbox1.isChecked()==true) {
+                    passwordEditText.setTransformationMethod(null);
+                }else{
+                    passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+                }
                 break;
 
         }

@@ -20,4 +20,9 @@
     <string name="title_login">Login</string>
     <string name="title_register">Register</string>
 
+    <string name="field_pass">Password</string>
+    <string name="field_passc">Repeat password</string>
+    <string name="field_nick">Nick</string>
+    <string name="check_pass">Show password</string>
+
 </resources>

@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".actividades.RegistroActivity"
+            android:parentActivityName=".actividades.LoginActivity" />
+        <activity
             android:name=".actividades.RoundActivity"
             android:parentActivityName=".actividades.RoundListActivity" />
         <activity
