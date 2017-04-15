@@ -2,6 +2,7 @@ package es.uam.oscar_garcia.othello.actividades;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,7 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
     private OthelloBoard board;
     private int size;
     private Round round;
+    MediaPlayer mediaPlayer ;
 
     /**
      * Crea la actividad e inicializa los fragmentos necesarios
@@ -37,6 +39,13 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+        mediaPlayer = MediaPlayer.create(this, R.raw.to_new_world);
+        if(OthelloPreferenceActivity.getMusic(this)){
+            mediaPlayer.start();
+        }else{
+            mediaPlayer.pause();
+        }
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
@@ -75,5 +84,16 @@ public class RoundActivity extends AppCompatActivity implements RoundFragment.Ca
      */
     @Override
     public void onRoundUpdated(Round round) {
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer!=null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+
+
     }
 }

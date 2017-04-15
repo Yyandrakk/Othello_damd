@@ -25,4 +25,10 @@
     <string name="field_nick">Nick</string>
     <string name="check_pass">Show password</string>
 
+    <string name="barra_home">Home</string>
+    <string name="barra_score">Score</string>
+    <string name="barra_setting">Setting</string>
+    <string name="barra_help">Help</string>
+    <string name="barra_logout">Exit</string>
+
 </resources>

@@ -45,4 +45,10 @@
     <string name="field_passc">Repita la contraseña</string>
     <string name="field_nick">Usuario</string>
     <string name="check_pass">Mostrar contraseña</string>
+
+    <string name="barra_home">Inicio</string>
+    <string name="barra_score">Puntuacion</string>
+    <string name="barra_setting">Opciones</string>
+    <string name="barra_help">Ayuda</string>
+    <string name="barra_logout">Salir</string>
 </resources>

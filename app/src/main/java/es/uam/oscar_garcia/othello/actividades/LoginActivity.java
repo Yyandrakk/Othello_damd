@@ -2,6 +2,7 @@ package es.uam.oscar_garcia.othello.actividades;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         if (!OthelloPreferenceActivity.getPlayerName(this).
                 equals(OthelloPreferenceActivity.PLAYERNAME_DEFAULT)){
             startActivity(new Intent(LoginActivity.this, RoundListActivity.class));

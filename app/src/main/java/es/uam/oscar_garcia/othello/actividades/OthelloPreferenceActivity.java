@@ -1,5 +1,6 @@
 package es.uam.oscar_garcia.othello.actividades;
 
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -17,10 +18,11 @@ import es.uam.oscar_garcia.othello.R;
 
 public class OthelloPreferenceActivity extends AppCompatActivity {
 
-    public final static String BOARDSIZE_KEY = "boardsize";
-    public final static String BOARDSIZE_DEFAULT = "0";
+
     public final static String MOVALI_KEY = "movalido";
     public final static boolean MOVALI_DEFAULT = true;
+    public final static String MUSIC_KEY = "music";
+    public final static boolean MUSIC_DEFAULT = true;
     public static final String PLAYERNAME_KEY = "nameU";
     public static final String PLAYERNAME_DEFAULT = "Usuario";
     public static final String PLAYERPASS_KEY = "passU";
@@ -31,7 +33,7 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+        setContentView(R.layout.activity_frag);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
@@ -40,18 +42,10 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
-    public static String getBoardSize(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(BOARDSIZE_KEY, BOARDSIZE_DEFAULT);
-    }
-    public static void setBoardsize(Context context, int size) {
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(OthelloPreferenceActivity.BOARDSIZE_KEY, size);
-        editor.commit();
-    }
 
+    public static boolean getMusic(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MUSIC_KEY,MUSIC_DEFAULT);
+    }
     public static boolean getMovValido(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MOVALI_KEY,MOVALI_DEFAULT);
     }
