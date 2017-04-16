@@ -105,9 +105,9 @@ public class RoundListFragment extends Fragment {
                 repository.addRound(round, callback);
 
                 return true;
-            case R.id.menu_item_settings:
+            /*case R.id.menu_item_settings:
                 callbacks.onPreferencesSelected();
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -129,7 +129,9 @@ public class RoundListFragment extends Fragment {
             super(itemView);
             idTextView = (TextView) itemView.findViewById(R.id.list_item_id);
             j1TextView = (TextView) itemView.findViewById(R.id.list_item_j1);
+
             j2TextView = (TextView) itemView.findViewById(R.id.list_item_j2);
+
             dateTextView = (TextView) itemView.findViewById(R.id.list_item_date);
         }
 
@@ -141,7 +143,9 @@ public class RoundListFragment extends Fragment {
             this.round = round;
             idTextView.setText(round.getTitle());
             j1TextView.setText("G "+Integer.toString(round.getBoard().getNumFichasJ1()));
+            j1TextView.setTextColor(Color.parseColor("#7CB342"));
             j2TextView.setText("R "+Integer.toString(round.getBoard().getNumFichasJ2()));
+            j2TextView.setTextColor(Color.parseColor("#FF5722"));
             dateTextView.setText(String.valueOf(round.getDate()).substring(0,19));
         }
     }

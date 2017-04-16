@@ -27,9 +27,9 @@ import es.uam.oscar_garcia.othello.model.OthelloBoard;
 public class OthelloView extends View {
 
     private final String DEBUG = "ERView";
-    private final int VACIA_C=Color.parseColor("#D1C4E9");
+    private final int VACIA_C=Color.parseColor("#464a51");
     private final int TABLERO_C=Color.parseColor("#9575cd");
-    private final int POSIBLE_C=Color.parseColor("#7986CB");
+    private final int POSIBLE_C=Color.parseColor("#D1C4E9");
     private  final int JUG1_C=Color.parseColor("#7CB342");
     private final int JUG2_C=Color.parseColor("#FF5722");
 

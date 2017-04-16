@@ -51,4 +51,15 @@
     <string name="barra_setting">Opciones</string>
     <string name="barra_help">Ayuda</string>
     <string name="barra_logout">Salir</string>
+    <string name="help_page_intro">Barra lateral</string>
+
+    <string name="text_load">Cargando...</string>
+    <string name="help_inicio">Inicio de la aplicacion, donde se encuentran las partidas</string>
+    <string name="help_score">En esta pantalla se mostraran las puntaciones de las partidas acabadas</string>
+    <string name="help_setting">Menu de opciones</string>
+    <string name="help_exit">Logout que te devuelve a la pantalla de login</string>
+    <string name="help_title_inicio">Lista de partidas</string>
+    <string name="help_add">El boton añade una partida a la lista. Si se pulsa en un elemento de la lista saltara al tablero.</string>
+    <string name="help_tittle_round">Tablero</string>
+    <string name="help_round">En el tablero estaran las fichas del contrario en verde y las tuyas en naranja, debes pulsar una casilla libre entre una ficha tuya y las del rival, si tienes la ayuda activa se iluminaran los posibles movimientos.</string>
 </resources>

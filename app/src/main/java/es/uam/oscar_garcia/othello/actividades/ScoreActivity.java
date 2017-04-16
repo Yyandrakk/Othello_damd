@@ -16,15 +16,12 @@ import android.view.MenuItem;
 import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.model.Round;
 
-
 /**
- * Created by oscar on 1/03/17.
+ * Created by oscar on 16/04/17.
  */
 
-public class RoundListActivity extends AppCompatActivity implements RoundListFragment.Callbacks,RoundFragment.Callbacks {
-    private static final int SIZE = 8;
-    private RecyclerView roundRecyclerView;
-    private RoundListFragment.RoundAdapter roundAdapter;
+public class ScoreActivity extends AppCompatActivity {
+
     private DrawerLayout mDrawerLayout;
     MediaPlayer mediaPlayer ;
     /**
@@ -34,9 +31,9 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_fragment);
+        // setContentView(R.layout.activity_fragment);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_masterdetail);
+        setContentView(R.layout.activity_score);
         mediaPlayer = MediaPlayer.create(this, R.raw.to_new_world);
         if(OthelloPreferenceActivity.getMusic(this)){
             mediaPlayer.start();
@@ -65,21 +62,23 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
                         // TODO: handle navigation
                         switch (menuItem.getItemId()){
                             case R.id.menubar_item_exit:
-                             intent = new Intent(RoundListActivity.this, LoginActivity.class);
-                                OthelloPreferenceActivity.setPlayerUUID(RoundListActivity.this, OthelloPreferenceActivity.PLAYERUUID_DEFAULT);
-                                OthelloPreferenceActivity.setPlayerName(RoundListActivity.this, OthelloPreferenceActivity.PLAYERNAME_DEFAULT);
-                                OthelloPreferenceActivity.setPlayerPassword(RoundListActivity.this, OthelloPreferenceActivity.PLAYERPASS_DEFAULT);
+                                intent = new Intent(ScoreActivity.this, LoginActivity.class);
+                                OthelloPreferenceActivity.setPlayerUUID(ScoreActivity.this, OthelloPreferenceActivity.PLAYERUUID_DEFAULT);
+                                OthelloPreferenceActivity.setPlayerName(ScoreActivity.this, OthelloPreferenceActivity.PLAYERNAME_DEFAULT);
+                                OthelloPreferenceActivity.setPlayerPassword(ScoreActivity.this, OthelloPreferenceActivity.PLAYERPASS_DEFAULT);
                                 break;
                             case R.id.menubar_item_setting:
-                                intent = new Intent(RoundListActivity.this, OthelloPreferenceActivity.class);
+                                intent = new Intent(ScoreActivity.this, OthelloPreferenceActivity.class);
                                 break;
                             case R.id.menubar_item_help:
-                                intent = new Intent(RoundListActivity.this, HelpActivity.class);
+                                intent = new Intent(ScoreActivity.this, HelpActivity.class);
+                                break;
+                            case R.id.menubar_item_home:
+                                intent = new Intent(ScoreActivity.this, RoundListActivity.class);
                                 break;
                             case R.id.menubar_item_score:
-                                intent = new Intent(RoundListActivity.this,ScoreActivity.class);
+                                intent = new Intent(ScoreActivity.this,ScoreActivity.class);
                                 break;
-
                             default:
 
                         }
@@ -92,57 +91,20 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
                 });
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container_score);
         if (fragment == null) {
-            fragment = new RoundListFragment();
+            fragment = new ScoreFragment();
             fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.fragment_container_score, fragment)
                     .commit();
         }
 
     }
 
-    /**
-     * Inicializa la actividad o elfragmento para la ronda selecionada
-     * @param round Round selecionada
-     */
-    @Override
-    public void onRoundSelected(Round round) {
-        if (findViewById(R.id.detail_fragment_container) == null) {
-            Intent intent = RoundActivity.newIntent(this, round.getId(),round.getPlayerUUID().toString(),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
-            startActivity(intent);
-        } else {
-            RoundFragment roundFragment = RoundFragment.newInstance(round.getId(),OthelloPreferenceActivity.getPlayerName(this),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_fragment_container, roundFragment)
-                    .commit();
-        }
-    }
 
-    /**
-     * Actualiza los fragmentos de la lista
-     * @param round Round modificada
-     */
-    public void onRoundUpdated(Round round) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        RoundListFragment roundListFragment = (RoundListFragment)
-                fragmentManager.findFragmentById(R.id.fragment_container);
-        roundListFragment.updateUI();
-    }
 
-    @Override
-    public void onPreferencesSelected() {
-        Intent intent = new Intent(this, OthelloPreferenceActivity.class);
-        startActivity(intent);
-    }
 
-    @Override
-    public void onNewRoundAdded() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        RoundListFragment roundListFragment = (RoundListFragment)
-                fragmentManager.findFragmentById(R.id.fragment_container);
-        roundListFragment.updateUI();
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -150,12 +112,12 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-         if (id == android.R.id.home) {
-             if( mDrawerLayout.isDrawerOpen(GravityCompat.START)){
-                 mDrawerLayout.closeDrawer(GravityCompat.START);
-             }else{
-                 mDrawerLayout.openDrawer(GravityCompat.START);
-             }
+        if (id == android.R.id.home) {
+            if( mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }else{
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
         }
         return super.onOptionsItemSelected(item);
     }

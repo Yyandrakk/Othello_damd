@@ -138,6 +138,10 @@ public class OthelloDataBase implements RoundRepository {
 
         @Override
         public void register(String playername, String password,LoginRegisterCallback callback) {
+            if(playername.length()==0 || password.length()==0){
+                callback.onError("Error campos vacios " + playername);
+                return;
+            }
             ContentValues values = new ContentValues();
             String uuid = UUID.randomUUID().toString();
             values.put(UserTable.Cols.PLAYERUUID, uuid);

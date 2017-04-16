@@ -31,4 +31,6 @@
     <string name="barra_help">Help</string>
     <string name="barra_logout">Exit</string>
 
+    <string name="text_load">Loading...</string>
+
 </resources>
