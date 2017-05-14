@@ -31,7 +31,7 @@ import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
 public class OthelloDataBase implements RoundRepository {
     private final String DEBUG_TAG = "DEBUG";
     private static final String DATABASE_NAME = "othello.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private DatabaseHelper helper;
     private SQLiteDatabase db;
 

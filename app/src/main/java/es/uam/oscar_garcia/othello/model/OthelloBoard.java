@@ -2,6 +2,8 @@ package es.uam.oscar_garcia.othello.model;
 
 
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -39,6 +41,7 @@ public class OthelloBoard extends Tablero {
         this.tab = tab;
     }
 
+    public void setTurno(int turno){this.turno=turno;}
 
 
 
@@ -449,58 +452,39 @@ public class OthelloBoard extends Tablero {
 
     @Override
     public String tableroToString() {
-        JSONObject object = new JSONObject();
-        ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+
         String tablero= "";
-        try {
-           /* for(int i=0;i<size;i++){
-                matrix.add(new ArrayList<Integer>(Arrays.asList(tab[i][0],tab[i][1],tab[i][2],tab[i][3],tab[i][4],tab[i][5],tab[i][6],tab[i][7])));
-            }*/
+        tablero+=String.valueOf(this.turno);
+        tablero+=String.valueOf(this.estado);
+        tablero+=String.valueOf(this.numJugadas);
 
-            object.put(ID_ESTADO,this.estado);
-            object.put(ID_NUM_JUG,this.numJugadas);
-            object.put(ID_JUGADORES,this.numJugadores);
-            for(int i=0;i<size;i++){
-                for(int j=0;j<size;j++){
-                   tablero+=String.valueOf(tab[i][j]);
-                }
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+               tablero+=String.valueOf(tab[i][j]);
             }
-            object.put(ID_TAB,tablero);
-            object.put(ID_TURNO,this.turno);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
         }
 
 
-        return object.toString();
+
+        return tablero;
     }
 
     @Override
     public void stringToTablero(String cadena) throws ExcepcionJuego {
-        ArrayList<ArrayList<Integer>> matrix;
-        String cad;
-        try {
-            JSONObject object = new JSONObject(cadena);
-            this.estado = object.getInt(ID_ESTADO);
-            this.numJugadas = object.getInt(ID_NUM_JUG);
-            this.numJugadores = object.getInt(ID_JUGADORES);
-            cad= object.getString(ID_TAB);
-            for(int i=0,c=0;i<size;i++){
-                for(int j=0;j<size;j++){
-                    this.tab[i][j]=Character.getNumericValue(cad.charAt(c));
-                    c++;
-                }
-            }
-            this.turno = object.getInt(ID_TURNO);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-
-
-
+       int c=0;
+       this.turno = Character.getNumericValue(cadena.charAt(c));
+        c++;
+        this.estado = Character.getNumericValue(cadena.charAt(c));
+        c++;
+        this.numJugadas=Character.getNumericValue(cadena.charAt(c));
+        c++;
+       for(int i=0;i<size;i++){
+           for(int j=0;j<size;j++){
+               this.tab[i][j]=Character.getNumericValue(cadena.charAt(c));
+               c++;
+           }
+       }
 
     }
 

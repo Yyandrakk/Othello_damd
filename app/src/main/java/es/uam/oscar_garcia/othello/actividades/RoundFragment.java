@@ -23,6 +23,8 @@ import es.uam.eps.multij.PartidaListener;
 import es.uam.eps.multij.Tablero;
 import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.model.OthelloBoard;
+import es.uam.oscar_garcia.othello.model.OthelloLocalServerPlayer;
+import es.uam.oscar_garcia.othello.model.OthelloRemotePlayer;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
 import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
@@ -154,7 +156,7 @@ public class RoundFragment extends Fragment implements PartidaListener {
 
 
     private Round createRound() {
-        Round round = new Round(size, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())));
+        Round round = new Round(size, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())),OthelloPreferenceActivity.getPlayerName(getActivity()));
         round.setPlayerUUID(OthelloPreferenceActivity.getPlayerUUID(getActivity()));
         round.setId(roundId);
         round.setFirstPlayerName("random");
@@ -196,16 +198,34 @@ public class RoundFragment extends Fragment implements PartidaListener {
      */
     void startRound() {
         ArrayList<Jugador> players = new ArrayList<Jugador>();
-        JugadorAleatorio randomPlayer = new JugadorAleatorio("Jugador aleatorio");
-        OthelloLocalPlayer localPlayer = new OthelloLocalPlayer();
-        players.add(randomPlayer);
-        players.add(localPlayer);
-        game = new Partida(round.getBoard(), players);
-        game.addObservador(this);
-        localPlayer.setPartida(game);
-        boardView = (OthelloView) getView().findViewById(R.id.board_erview);
-        boardView.setBoard(size, round.getBoard());
-        boardView.setOnPlayListener(localPlayer);
+        if(OthelloPreferenceActivity.getOnline(getContext())){
+            OthelloLocalServerPlayer localServerPlayer = new OthelloLocalServerPlayer(getContext(),round.getId());
+            OthelloRemotePlayer remotePlayer = new OthelloRemotePlayer(getContext(),round.getId());
+            if(round.getFirstPlayerName().equals(OthelloPreferenceActivity.getPlayerName(getContext()))){
+                players.add(localServerPlayer);
+                players.add(remotePlayer);
+            }else{
+                players.add(remotePlayer);
+                players.add(localServerPlayer);
+            }
+            game =new Partida(round.getBoard(),players);
+            game.addObservador(this);
+            boardView = (OthelloView) getView().findViewById(R.id.board_erview);
+            boardView.setBoard(size, round.getBoard());
+            boardView.setOnPlayListener(localServerPlayer);
+
+        }else {
+            JugadorAleatorio randomPlayer = new JugadorAleatorio("Jugador aleatorio");
+            OthelloLocalPlayer localPlayer = new OthelloLocalPlayer();
+            players.add(randomPlayer);
+            players.add(localPlayer);
+            game = new Partida(round.getBoard(), players);
+            game.addObservador(this);
+            localPlayer.setPartida(game);
+            boardView = (OthelloView) getView().findViewById(R.id.board_erview);
+            boardView.setBoard(size, round.getBoard());
+            boardView.setOnPlayListener(localPlayer);
+        }
         registerListener();
         if (game.getTablero().getEstado() == Tablero.EN_CURSO)
             game.comenzar();

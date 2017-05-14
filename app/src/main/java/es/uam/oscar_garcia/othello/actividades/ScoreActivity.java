@@ -76,9 +76,6 @@ public class ScoreActivity extends AppCompatActivity {
                             case R.id.menubar_item_home:
                                 intent = new Intent(ScoreActivity.this, RoundListActivity.class);
                                 break;
-                            case R.id.menubar_item_score:
-                                intent = new Intent(ScoreActivity.this,ScoreActivity.class);
-                                break;
                             default:
 
                         }

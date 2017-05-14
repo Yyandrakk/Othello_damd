@@ -33,7 +33,7 @@ public class RoundCursorWrapper extends CursorWrapper {
         String date =getString(getColumnIndex(RoundDataBaseSchema.RoundTable.Cols.DATE));
         String id =getString(getColumnIndex(RoundDataBaseSchema.RoundTable.Cols.ROUNDUUID));
         String title=getString(getColumnIndex(RoundDataBaseSchema.RoundTable.Cols.TITLE));
-        Round round = new Round(size,uuid);
+        Round round = new Round(size,uuid,"random");
         round.setFirstPlayerName("random");
         round.setSecondPlayerName(playername);
         round.setDate(date);

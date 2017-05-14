@@ -57,6 +57,9 @@ public class HelpActivity extends AppCompatActivity {
                             case R.id.menubar_item_home:
                                 intent = new Intent(HelpActivity.this, RoundListActivity.class);
                                 break;
+                            case R.id.menubar_item_score:
+                                intent = new Intent(HelpActivity.this,ScoreActivity.class);
+                                break;
 
                             default:
 

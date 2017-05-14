@@ -19,11 +19,12 @@ public class Round {
     private OthelloBoard board;
     private String firstPlayerName;
     private String secondPlayerName;
+    private boolean active=false;
     /**
      *
      * @param size
      */
-    public Round(int size,UUID player) {
+    public Round(int size,UUID player,String name) {
         this.size = size;
         id = UUID.randomUUID().toString();
         title = "ROUND " + id.toString().substring(19, 23).toUpperCase();
@@ -31,7 +32,7 @@ public class Round {
         date = new Date().toString();
         board = new OthelloBoard(size);
         player1=player;
-        firstPlayerName=player.toString();
+        firstPlayerName=name;
     }
 
     /**
@@ -92,6 +93,9 @@ public class Round {
         this.firstPlayerName = firstPlayerName;
 
     }
+    public String getFirstPlayerName() {
+      return  this.firstPlayerName ;
+    }
 
     public void setSecondPlayerName(String secondPlayerName) {
         this.secondPlayerName = secondPlayerName;
@@ -99,6 +103,18 @@ public class Round {
 
     public void setPlayerUUID(String playerUUID) {
         this.player1 = UUID.fromString(playerUUID);
-        this.secondPlayerName=playerUUID;
+        //this.secondPlayerName=playerUUID;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setTurno(String turno) {
+        this.board.setTurno(Integer.parseInt(turno));
+    }
+
+    public boolean getActive() {
+        return active;
     }
 }

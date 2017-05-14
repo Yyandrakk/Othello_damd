@@ -29,6 +29,8 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
     public static final String PLAYERPASS_DEFAULT = "Usuario";
     public static final String PLAYERUUID_KEY = "uuidU";
     public static final String PLAYERUUID_DEFAULT = "910201";
+    public static final boolean ONLINE_DEFAULT = true;
+    public static final String ONLINE_KEY = "conexion_online";
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -85,5 +87,16 @@ public class OthelloPreferenceActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(OthelloPreferenceActivity.PLAYERPASS_KEY, password);
         editor.commit();
+    }
+
+    public static void setOnline(Context context, boolean b) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(OthelloPreferenceActivity.ONLINE_KEY, b);
+        editor.commit();
+    }
+    public static boolean getOnline(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(ONLINE_KEY,ONLINE_DEFAULT);
     }
 }

@@ -155,7 +155,7 @@ public class ScoreFragment extends Fragment {
             public void onResponse(List<Round> rounds) {
                 List<Round> aux = new ArrayList<>();
                 for (Round r :rounds) {
-                    if(r.getBoard().getEstado()== OthelloBoard.FINALIZADA){
+                    if(r.getBoard().getEstado()!= OthelloBoard.EN_CURSO){
                         aux.add(r);
                     }
 

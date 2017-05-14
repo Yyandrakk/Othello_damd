@@ -27,9 +27,11 @@ import java.util.UUID;
 
 import es.uam.oscar_garcia.othello.R;
 
+import es.uam.oscar_garcia.othello.database.OthelloDataBase;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
 import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
+import es.uam.oscar_garcia.othello.server.ServerRepository;
 
 
 /**
@@ -87,7 +89,7 @@ public class RoundListFragment extends Fragment {
 
 
               RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
-                Round round = new Round(8, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())));
+                Round round = new Round(8, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())),OthelloPreferenceActivity.getPlayerName(getActivity()));
                 RoundRepository.BooleanCallback callback = new RoundRepository.BooleanCallback() {
                     @Override
                     public void onResponse(boolean response) {
@@ -119,6 +121,7 @@ public class RoundListFragment extends Fragment {
         private TextView j1TextView;
         private TextView j2TextView;
         private TextView dateTextView;
+        private TextView nameTextView;
         private Round round;
 
         /**
@@ -129,9 +132,8 @@ public class RoundListFragment extends Fragment {
             super(itemView);
             idTextView = (TextView) itemView.findViewById(R.id.list_item_id);
             j1TextView = (TextView) itemView.findViewById(R.id.list_item_j1);
-
             j2TextView = (TextView) itemView.findViewById(R.id.list_item_j2);
-
+            nameTextView = (TextView) itemView.findViewById(R.id.list_item_name);
             dateTextView = (TextView) itemView.findViewById(R.id.list_item_date);
         }
 
@@ -147,6 +149,10 @@ public class RoundListFragment extends Fragment {
             j2TextView.setText("R "+Integer.toString(round.getBoard().getNumFichasJ2()));
             j2TextView.setTextColor(Color.parseColor("#FF5722"));
             dateTextView.setText(String.valueOf(round.getDate()).substring(0,19));
+            nameTextView.setText(round.getFirstPlayerName());
+            if(!round.getActive()){
+                this.itemView.setBackgroundColor(Color.parseColor("#C5E1A5"));
+            }
         }
     }
 
@@ -205,7 +211,22 @@ public class RoundListFragment extends Fragment {
                         {
                             @Override
                             public void onResponse(List<Round> rounds) {
-                                callbacks.onRoundSelected(rounds.get(position));
+                                Round r = rounds.get(position);
+                                if(r.getActive())
+                                    callbacks.onRoundSelected(rounds.get(position));
+                                else if(!(r.getFirstPlayerName().equals(OthelloPreferenceActivity.getPlayerName(getContext())))){
+                                   RoundRepository s=RoundRepositoryFactory.createRepository(getContext());
+                                    if(s instanceof ServerRepository){
+                                        RoundRepository.BooleanCallback bcallback = new RoundRepository.BooleanCallback() {
+                                            @Override
+                                            public void onResponse(boolean ok) {
+
+                                            }
+                                        };
+                                        ((ServerRepository) s).addPlayerToRound(r,bcallback);
+                                    }
+
+                                }
                             }
                             @Override
                             public void onError(String error) {
@@ -214,7 +235,11 @@ public class RoundListFragment extends Fragment {
                             }
                         };
                         String playeruuid = OthelloPreferenceActivity.getPlayerUUID(getActivity());
-                        repository.getRounds(playeruuid, null, null, roundsCallback);
+                        if(repository instanceof OthelloDataBase)
+                            repository.getRounds(playeruuid,null,null,roundsCallback);
+                        else
+                            ((ServerRepository) repository).getAllRounds(playeruuid,roundsCallback);
+                        //repository.getRounds(playeruuid, null, null, roundsCallback);
                     }
                 }));
     this.setHasOptionsMenu(true);
@@ -234,7 +259,7 @@ public class RoundListFragment extends Fragment {
      * Actualiza la interfaz grafica
      */
     protected void updateUI() {
-        RoundRepository repository = RoundRepositoryFactory.createRepository(getActivity());
+        RoundRepository repository = RoundRepositoryFactory.createRepository(getContext());
 
         RoundRepository.RoundsCallback callback =new RoundRepository.RoundsCallback() {
             @Override
@@ -253,9 +278,10 @@ public class RoundListFragment extends Fragment {
                 //Snackbar.make(, error, Snackbar.LENGTH_SHORT).show();
             }
         };
-
-       repository.getRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),null,null,callback);
-
+        if(repository instanceof OthelloDataBase)
+            repository.getRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),null,null,callback);
+        else
+            ((ServerRepository) repository).getAllRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),callback);
 
     }
 
