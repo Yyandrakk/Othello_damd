@@ -24,10 +24,13 @@ import java.util.ListIterator;
 import java.util.UUID;
 
 import es.uam.oscar_garcia.othello.R;
+import es.uam.oscar_garcia.othello.database.OthelloDataBase;
 import es.uam.oscar_garcia.othello.model.OthelloBoard;
 import es.uam.oscar_garcia.othello.model.Round;
 import es.uam.oscar_garcia.othello.model.RoundRepository;
 import es.uam.oscar_garcia.othello.model.RoundRepositoryFactory;
+import es.uam.oscar_garcia.othello.server.ServerRepository;
+
 import android.support.v4.app.Fragment;
 
 /**
@@ -175,8 +178,11 @@ public class ScoreFragment extends Fragment {
                 //Snackbar.make(, error, Snackbar.LENGTH_SHORT).show();
             }
         };
+        if(repository instanceof OthelloDataBase)
+            repository.getRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),null,null,callback);
+        else
+            ((ServerRepository) repository).getFinishRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),callback);
 
-        repository.getRounds(OthelloPreferenceActivity.getPlayerUUID(getActivity()),null,null,callback);
 
 
     }

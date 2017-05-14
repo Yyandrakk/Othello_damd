@@ -35,7 +35,7 @@ public class ServerRepository implements RoundRepository {
     private ServerInterface is;
 
     public static ServerRepository getInstance(Context context) {
-        Log.d(DEBUG,"LLEGO!!!");
+
         if (repository == null)
             repository = new ServerRepository(context.getApplicationContext());
         return repository;
@@ -138,7 +138,7 @@ public class ServerRepository implements RoundRepository {
                     round.setSecondPlayerName(player[1]);
                 }
 
-              //  round.setTurno(turno);
+               //round.setTurno(turno);
 
 // Se rellenan los miembros de round
 
@@ -153,7 +153,7 @@ public class ServerRepository implements RoundRepository {
     @Override
     public void getRounds(String playeruuid, String orderByField, String group,
                           final RoundsCallback callback) {
-        List<Round> rounds = new ArrayList<>();
+        //List<Round> rounds = new ArrayList<>();
         Response.Listener<JSONArray> responseCallback = new
                 Response.Listener<JSONArray>() {
                     @Override
@@ -194,6 +194,27 @@ public class ServerRepository implements RoundRepository {
         };
 
         is.getActiveRounds(puuid, responseCallback, errorCallback);
+    }
+    public void getFinishRounds(String puuid, final RoundsCallback callback) {
+
+        Response.Listener<JSONArray> responseCallback = new
+                Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        List<Round> rounds = roundsFromJSONArray(response);
+                        callback.onResponse(rounds);
+                        Log.d(DEBUG, "Rounds downloaded from server getActiveRounds");
+                    }
+                };
+        Response.ErrorListener errorCallback = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onError("Error downloading rounds from server");
+                Log.d(DEBUG, "Error downloading rounds from server getActiveRounds" );
+            }
+        };
+
+        is.getFinishRounds(puuid, responseCallback, errorCallback);
     }
     public void getAllRounds(final String playeruuid, final RoundsCallback callback) {
         final List<Round> Allrounds = new ArrayList<>();
@@ -279,7 +300,7 @@ public class ServerRepository implements RoundRepository {
             }
         };
 
-        is.sendBoard(Integer.parseInt(round.getId()),OthelloPreferenceActivity.getPlayerUUID(context),round.getBoard().tableroToString(),responseCallback,errorCallback);
+       // is.sendBoard(Integer.parseInt(round.getId()),OthelloPreferenceActivity.getPlayerUUID(context),round.getBoard().tableroToString(),responseCallback,errorCallback);
     }
     public void addPlayerToRound(final Round round, final BooleanCallback callback) {
         Response.Listener<String> responseCallback = new

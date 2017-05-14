@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,8 +160,8 @@ public class RoundFragment extends Fragment implements PartidaListener {
         Round round = new Round(size, UUID.fromString(OthelloPreferenceActivity.getPlayerUUID(getActivity())),OthelloPreferenceActivity.getPlayerName(getActivity()));
         round.setPlayerUUID(OthelloPreferenceActivity.getPlayerUUID(getActivity()));
         round.setId(roundId);
-        round.setFirstPlayerName("random");
-        round.setSecondPlayerName(firstPlayerName);
+        round.setFirstPlayerName(firstPlayerName);
+        //round.setSecondPlayerName();
         round.setDate(roundDate);
         round.setTitle(roundTitle);
 
@@ -199,17 +200,22 @@ public class RoundFragment extends Fragment implements PartidaListener {
     void startRound() {
         ArrayList<Jugador> players = new ArrayList<Jugador>();
         if(OthelloPreferenceActivity.getOnline(getContext())){
-            OthelloLocalServerPlayer localServerPlayer = new OthelloLocalServerPlayer(getContext(),round.getId());
+            OthelloLocalServerPlayer localServerPlayer = new OthelloLocalServerPlayer(getContext(),round.getId(),0);
             OthelloRemotePlayer remotePlayer = new OthelloRemotePlayer(getContext(),round.getId());
+
+            Log.d("Crear Partida:","R.Name: "+round.getFirstPlayerName()+" Jug: "+OthelloPreferenceActivity.getPlayerName(getContext()));
             if(round.getFirstPlayerName().equals(OthelloPreferenceActivity.getPlayerName(getContext()))){
                 players.add(localServerPlayer);
                 players.add(remotePlayer);
             }else{
                 players.add(remotePlayer);
+                localServerPlayer.setCreador(1);
                 players.add(localServerPlayer);
             }
             game =new Partida(round.getBoard(),players);
             game.addObservador(this);
+            localServerPlayer.setPartida(game);
+            remotePlayer.setPartida(game);
             boardView = (OthelloView) getView().findViewById(R.id.board_erview);
             boardView.setBoard(size, round.getBoard());
             boardView.setOnPlayListener(localServerPlayer);

@@ -33,6 +33,8 @@ public class ServerInterface {
     private static final String ROUND_HISTORY_PHP = "roundhistory.php";
     private static final String NEW_MOVEMENT_PHP = "newmovement.php";
     private static final String NEW_ROUND_PHP = "newround.php";
+    private static final String FINISH_PHP = "finishedrounds.php";
+
     private static final String ADD_PLAYER_TO_ROUND_PHP = "addplayertoround.php";
     public static final int GAME_ID = 106;
     private RequestQueue queue;
@@ -79,6 +81,16 @@ public class ServerInterface {
                 errorCallback);
         queue.add(r);
     }
+    public void sendBoardF(int roundid, String playerid, String codedboard, Response.Listener<String> callback,
+                          ErrorListener errorCallback) {
+        String url = BASE_URL + NEW_MOVEMENT_PHP + "?roundid=" + roundid +
+                "&playerid=" + playerid +
+                "&codedboard=" + codedboard+"&finished="+1;
+        Log.d(DEBUG, url);
+        StringRequest r = new StringRequest(Request.Method.GET, url, callback,
+                errorCallback);
+        queue.add(r);
+    }
 
     public void esMiTurno(final int roundid, final String playerid, Response.Listener<JSONObject> callback,
                           ErrorListener errorCallback) {
@@ -101,6 +113,15 @@ public class ServerInterface {
 
     public void getActiveRounds(final String playerid, Response.Listener<JSONArray> callback, ErrorListener errorCallback) {
         String url = BASE_URL + ACTIVE_ROUNDS_PHP + "?" +
+                "&gameid=" + GAME_ID + "&playerid=" + playerid;
+        Log.d(DEBUG, url);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, callback,
+                errorCallback);
+        queue.add(jsonArrayRequest);
+
+    }
+    public void getFinishRounds(final String playerid, Response.Listener<JSONArray> callback, ErrorListener errorCallback) {
+        String url = BASE_URL + FINISH_PHP + "?" +
                 "&gameid=" + GAME_ID + "&playerid=" + playerid;
         Log.d(DEBUG, url);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, callback,

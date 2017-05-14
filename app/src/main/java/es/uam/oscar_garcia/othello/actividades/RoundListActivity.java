@@ -109,7 +109,7 @@ public class RoundListActivity extends AppCompatActivity implements RoundListFra
     @Override
     public void onRoundSelected(Round round) {
         if (findViewById(R.id.detail_fragment_container) == null) {
-            Intent intent = RoundActivity.newIntent(this, round.getId(),round.getPlayerUUID().toString(),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
+            Intent intent = RoundActivity.newIntent(this, round.getId(),round.getFirstPlayerName(),round.getTitle(),round.getDate(),round.getBoard().tableroToString());
             startActivity(intent);
         } else {
             RoundFragment roundFragment = RoundFragment.newInstance(round.getId(),OthelloPreferenceActivity.getPlayerName(this),round.getTitle(),round.getDate(),round.getBoard().tableroToString());

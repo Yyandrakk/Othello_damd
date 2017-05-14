@@ -1,7 +1,10 @@
 package es.uam.oscar_garcia.othello.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -13,6 +16,7 @@ import es.uam.eps.multij.Evento;
 import es.uam.eps.multij.Jugador;
 import es.uam.eps.multij.Partida;
 import es.uam.eps.multij.Tablero;
+import es.uam.oscar_garcia.othello.R;
 import es.uam.oscar_garcia.othello.actividades.OthelloPreferenceActivity;
 import es.uam.oscar_garcia.othello.server.ServerInterface;
 import es.uam.oscar_garcia.othello.views.OthelloView;
@@ -24,12 +28,14 @@ import es.uam.oscar_garcia.othello.views.OthelloView;
 public class OthelloLocalServerPlayer implements Jugador, OthelloView.OnPlayListener {
 
     private static final String DEBUG = "DEBUG";
+    private int creador;
     private Partida game;
     private Context context;
     private String roundId;
-    public OthelloLocalServerPlayer(Context context, String roundId) {
+    public OthelloLocalServerPlayer(Context context, String roundId, int creador) {
         this.context = context;
         this.roundId = roundId;
+        this.creador = creador;
     }
     private boolean isBoardUpToDate(String codedboard) {
         return game.getTablero().tableroToString().equals(codedboard);
@@ -45,21 +51,33 @@ public class OthelloLocalServerPlayer implements Jugador, OthelloView.OnPlayList
 // Si el turno es del jugador y el tablero está actualizado realiza movimiento
 // Si el turno es del jugador pero el tablero no está actualizado actualizar tablero
 // Si el turno no es del jugador, mostrar mensaje
-
+                            if(game.getTablero().getEstado()!=Tablero.EN_CURSO)
+                                return;
                             String codedboard = response.getString("codedboard");
-                            String turno = response.getString("turn");
-                            if(isBoardUpToDate(codedboard))
-                            {
-                                MovimientoOthello m;
-                                m = new MovimientoOthello(row, column);
-                                game.realizaAccion(new AccionMover(OthelloLocalServerPlayer.this, m));
+                            int turno = Integer.parseInt(response.getString("turn"));
+                            Log.d("PLAYER","Es mi turno?"+game.getTablero().getTurno()+" turno:"+turno+ "creador:"+creador);
 
+                            if(turno == 1) {
+                                Log.d("PLAYER","SI");
+                                if (isBoardUpToDate(codedboard)) {
+                                    MovimientoOthello m;
+                                    m = new MovimientoOthello(row, column);
+                                    game.realizaAccion(new AccionMover(OthelloLocalServerPlayer.this, m));
+
+                                } else {
+                                    Log.d("UPDATE",codedboard);
+                                    Log.d("ANTES",game.getTablero().tableroToString());
+                                    game.getTablero().stringToTablero(codedboard);
+
+                                    //game.continuar();
+                                }
                             }else{
-                                game.getTablero().stringToTablero(codedboard);
+                               // Snackbar.make(View.inflate(context,context.getL), R.string.draw, Snackbar.LENGTH_SHORT).show();
                             }
 
                         } catch (Exception e) {
                             Log.d(DEBUG, "" + e);
+
                         }
                     }
                 };
@@ -75,10 +93,17 @@ public class OthelloLocalServerPlayer implements Jugador, OthelloView.OnPlayList
 
     }
 
+    /**
+     *  Asocia una nueva Partida al jugador
+     * @param game
+     */
+    public void setPartida(Partida game) {
+        this.game = game;
+    }
 
     @Override
     public String getNombre() {
-        return null;
+        return (game==null)?"Vacio":"Jugador local server";
     }
 
     @Override
@@ -89,5 +114,9 @@ public class OthelloLocalServerPlayer implements Jugador, OthelloView.OnPlayList
     @Override
     public void onCambioEnPartida(Evento evento) {
 
+    }
+
+    public void setCreador(int creador) {
+        this.creador = creador;
     }
 }

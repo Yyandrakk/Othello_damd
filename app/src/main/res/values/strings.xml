@@ -2,7 +2,7 @@
     <string name="app_name">Othello</string>
     <string name="round_already_finished">Partida terminada</string>
     <string name="game_over">Has perdido</string>
-    <string name="invalid_movement">Movimiento no valido</string>
+    <string name="invalid_movement">Movimiento no válido</string>
     <string name="new_round">Nueva partida</string>
     <string name="round_restarted">Ronda recomenzada</string>
     <string name="win">Has ganado la partida</string>
@@ -10,18 +10,18 @@
     <string name="name_aleatorio">Jugador Aleatorio</string>
     <string name="title_activity_barra">barra</string>
     <string name="round_name">Ronda</string>
-    <string name="navigation_drawer_open">Abrir barra de navegacion</string>
-    <string name="navigation_drawer_close">Cerrar barra de navegacion</string>
+    <string name="navigation_drawer_open">Abrir barra de navegación</string>
+    <string name="navigation_drawer_close">Cerrar barra de navegación</string>
 
     <string name="action_settings">Opciones</string>
     <string name="settings_title">Ajustes del juego</string>
     <string name="settings_mov_sumary">Pulsa si necesitas ayuda al jugar</string>
-    <string name="settings_mov_title">Ayuda movimiento valido</string>
+    <string name="settings_mov_title">Ayuda movimiento válido</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_login">Autentificacion</string>
+    <string name="title_login">Autentificación</string>
     <string name="title_register">Registro</string>
 
     <!-- Strings related to login -->
@@ -47,19 +47,19 @@
     <string name="check_pass">Mostrar contraseña</string>
 
     <string name="barra_home">Inicio</string>
-    <string name="barra_score">Puntuacion</string>
+    <string name="barra_score">Puntuación</string>
     <string name="barra_setting">Opciones</string>
     <string name="barra_help">Ayuda</string>
     <string name="barra_logout">Salir</string>
     <string name="help_page_intro">Barra lateral</string>
 
     <string name="text_load">Cargando...</string>
-    <string name="help_inicio">Inicio de la aplicacion, donde se encuentran las partidas</string>
-    <string name="help_score">En esta pantalla se mostraran las puntaciones de las partidas acabadas</string>
-    <string name="help_setting">Menu de opciones</string>
+    <string name="help_inicio">Inicio de la aplicación, donde se encuentran las partidas</string>
+    <string name="help_score">En esta pantalla se mostrarán las puntaciones de las partidas acabadas</string>
+    <string name="help_setting">Menú de opciones</string>
     <string name="help_exit">Logout que te devuelve a la pantalla de login</string>
     <string name="help_title_inicio">Lista de partidas</string>
-    <string name="help_add">El boton añade una partida a la lista. Si se pulsa en un elemento de la lista saltara al tablero.</string>
+    <string name="help_add">El botón añade una partida a la lista. Si se pulsa en un elemento de la lista saltará al tablero.</string>
     <string name="help_tittle_round">Tablero</string>
-    <string name="help_round">En el tablero estaran las fichas del contrario en verde y las tuyas en naranja, debes pulsar una casilla libre entre una ficha tuya y las del rival, si tienes la ayuda activa se iluminaran los posibles movimientos.</string>
+    <string name="help_round">En el tablero estarán las fichas del contrario en verde y las tuyas en naranja, debes pulsar una casilla libre entre una ficha tuya y las del rival, si tienes la ayuda activa se iluminarán los posibles movimientos.</string>
 </resources>
