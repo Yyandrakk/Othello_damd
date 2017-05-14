@@ -32,5 +32,7 @@
     <string name="barra_logout">Exit</string>
 
     <string name="text_load">Loading...</string>
+    <string name="b_login">Log in</string>
+    <string name="b_reg">Registry</string>
 
 </resources>

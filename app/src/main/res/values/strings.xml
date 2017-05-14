@@ -62,4 +62,7 @@
     <string name="help_add">El botón añade una partida a la lista. Si se pulsa en un elemento de la lista saltará al tablero.</string>
     <string name="help_tittle_round">Tablero</string>
     <string name="help_round">En el tablero estarán las fichas del contrario en verde y las tuyas en naranja, debes pulsar una casilla libre entre una ficha tuya y las del rival, si tienes la ayuda activa se iluminarán los posibles movimientos.</string>
+    <string name="b_login">Iniciar</string>
+    <string name="b_reg">Registro</string>
+
 </resources>
