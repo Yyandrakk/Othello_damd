@@ -1,0 +1,12 @@
+<resources>
+    <string-array name="levelsArray">
+        <item>Traditional</item>
+        <item>10</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="levelsValues">
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+    </string-array>
+</resources>

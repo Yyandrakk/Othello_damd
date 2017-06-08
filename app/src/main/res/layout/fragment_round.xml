@@ -14,7 +14,7 @@
             android:layout_margin="20dp"
             android:textAllCaps="true"
             android:textSize="@dimen/title_size" />
-        <es.uam.oscar_garcia.othello.views.ERView
+        <es.uam.oscar_garcia.othello.views.OthelloView
             android:id="@+id/board_erview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

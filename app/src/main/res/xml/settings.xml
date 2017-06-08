@@ -1,0 +1,16 @@
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_title">
+
+        <SwitchPreference
+        android:key="movalido"
+        android:defaultValue="true"
+        android:summary="@string/settings_mov_sumary"
+        android:title="@string/settings_mov_title" />
+        <SwitchPreference
+            android:key="music"
+            android:summary="Click if you feel like listening to music"
+            android:title="Music"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

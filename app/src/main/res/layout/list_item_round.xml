@@ -30,7 +30,13 @@
         android:id="@+id/list_item_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_below="@id/list_item_id" />
+    <TextView
+        android:id="@+id/list_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_item_date" />
     <TextView
         android:id="@+id/list_item_j1"
         android:layout_width="wrap_content"

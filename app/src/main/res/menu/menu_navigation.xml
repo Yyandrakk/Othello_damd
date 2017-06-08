@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menubar_item_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:tint="@color/button_grey"
+            android:title="@string/barra_home" />
+        <item
+            android:id="@+id/menubar_item_score"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:tint="@color/button_grey"
+            android:title="@string/barra_score" />
+        <item
+            android:id="@+id/menubar_item_help"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:tint="@color/button_grey"
+            android:title="@string/barra_help" />
+        <item
+            android:id="@+id/menubar_item_setting"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:tint="@color/button_grey"
+            android:title="@string/barra_setting" />
+        <item
+            android:id="@+id/menubar_item_exit"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:tint="@color/button_grey"
+            android:title="@string/barra_logout" />
+    </group>
+</menu>

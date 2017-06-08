@@ -2,7 +2,7 @@
     <string name="app_name">Othello</string>
     <string name="round_already_finished">Partida terminada</string>
     <string name="game_over">Has perdido</string>
-    <string name="invalid_movement">Movimiento no valido</string>
+    <string name="invalid_movement">Movimiento no válido</string>
     <string name="new_round">Nueva partida</string>
     <string name="round_restarted">Ronda recomenzada</string>
     <string name="win">Has ganado la partida</string>
@@ -10,8 +10,59 @@
     <string name="name_aleatorio">Jugador Aleatorio</string>
     <string name="title_activity_barra">barra</string>
     <string name="round_name">Ronda</string>
-    <string name="navigation_drawer_open">Abrir barra de navegacion</string>
-    <string name="navigation_drawer_close">Cerrar barra de navegacion</string>
+    <string name="navigation_drawer_open">Abrir barra de navegación</string>
+    <string name="navigation_drawer_close">Cerrar barra de navegación</string>
 
     <string name="action_settings">Opciones</string>
+    <string name="settings_title">Ajustes del juego</string>
+    <string name="settings_mov_sumary">Pulsa si necesitas ayuda al jugar</string>
+    <string name="settings_mov_title">Ayuda movimiento válido</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_login">Autentificación</string>
+    <string name="title_register">Registro</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="repository_opening_error">Error repositorio de rondas</string>
+    <string name="error_reading_rounds">No se ha podido acceder a la base de datos</string>
+    <string name="error_creating_round">Error al crear la partida</string>
+    <string name="error_updating_round">Error al actualizar la ronda</string>
+
+    <string name="field_pass">Contraseña</string>
+    <string name="field_passc">Repita la contraseña</string>
+    <string name="field_nick">Usuario</string>
+    <string name="check_pass">Mostrar contraseña</string>
+
+    <string name="barra_home">Inicio</string>
+    <string name="barra_score">Puntuación</string>
+    <string name="barra_setting">Opciones</string>
+    <string name="barra_help">Ayuda</string>
+    <string name="barra_logout">Salir</string>
+    <string name="help_page_intro">Barra lateral</string>
+
+    <string name="text_load">Cargando...</string>
+    <string name="help_inicio">Inicio de la aplicación, donde se encuentran las partidas</string>
+    <string name="help_score">En esta pantalla se mostrarán las puntaciones de las partidas acabadas</string>
+    <string name="help_setting">Menú de opciones</string>
+    <string name="help_exit">Logout que te devuelve a la pantalla de login</string>
+    <string name="help_title_inicio">Lista de partidas</string>
+    <string name="help_add">El botón añade una partida a la lista. Si se pulsa en un elemento de la lista saltará al tablero.</string>
+    <string name="help_tittle_round">Tablero</string>
+    <string name="help_round">En el tablero estarán las fichas del contrario en verde y las tuyas en naranja, debes pulsar una casilla libre entre una ficha tuya y las del rival, si tienes la ayuda activa se iluminarán los posibles movimientos.</string>
+    <string name="b_login">Iniciar</string>
+    <string name="b_reg">Registro</string>
+
 </resources>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:background="@color/colorBack"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="56dp"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/help_page_intro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="casual"
+            android:padding="2dip"
+            android:text="@string/help_page_intro"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="34dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_home_black_24dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="46dp"
+            android:layout_marginStart="16dp" />
+
+        <TextView
+            android:id="@+id/help_inicio"
+            android:layout_width="281dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_inicio"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="36dp"
+            android:layout_height="38dp"
+            app:srcCompat="@drawable/ic_stars_black_24dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/help_setting"
+            android:layout_marginTop="47dp"
+            android:layout_marginBottom="47dp"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/help_score"
+            android:layout_width="280dp"
+            android:layout_height="44dp"
+            android:layout_marginBottom="17dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_score"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/imageView4"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/help_inicio"
+            app:layout_constraintVertical_bias="0.111"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="38dp"
+            android:layout_height="36dp"
+            app:srcCompat="@drawable/ic_edit_black_24dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/help_title_inicio"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            android:layout_marginBottom="61dp" />
+
+        <TextView
+            android:id="@+id/help_setting"
+            android:layout_width="285dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="17dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="17dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_setting"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/help_exit"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/help_score"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            app:srcCompat="@drawable/ic_exit_to_app_black_24dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/help_title_inicio"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/help_exit"
+            android:layout_width="285dp"
+            android:layout_height="37dp"
+            android:layout_marginBottom="49dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="49dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_exit"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/help_add"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <TextView
+            android:id="@+id/help_title_inicio"
+            android:layout_width="0dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginStart="11dp"
+            android:fontFamily="casual"
+            android:text="@string/help_title_inicio"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="42dp"
+            android:layout_height="36dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toTopOf="@+id/help_round"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="49dp"
+            app:layout_constraintTop_toBottomOf="@+id/help_exit"
+            android:layout_marginBottom="48dp" />
+
+        <TextView
+            android:id="@+id/help_add"
+            android:layout_width="280dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="146dp"
+            android:layout_marginLeft="63dp"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="145dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_add"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/help_round"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/help_score"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <TextView
+            android:id="@+id/help_round"
+            android:layout_width="322dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/help_round"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/navheader"
+        app:menu="@menu/menu_navigation" />
+</android.support.v4.widget.DrawerLayout>

@@ -12,22 +12,27 @@ import es.uam.oscar_garcia.othello.R;
 public class Round {
 
     private int size=8;
+    private UUID player1;
     private String id;
     private String title;
     private String date;
-    private ERBoard board;
-
+    private OthelloBoard board;
+    private String firstPlayerName;
+    private String secondPlayerName;
+    private boolean active=false;
     /**
      *
      * @param size
      */
-    public Round(int size) {
+    public Round(int size,UUID player,String name) {
         this.size = size;
         id = UUID.randomUUID().toString();
         title = "ROUND " + id.toString().substring(19, 23).toUpperCase();
-        //title = getString(R.string.round_name) + id.toString().substring(19, 23).toUpperCase();
+       // title = getString(R.string.round_name) + id.toString().substring(19, 23).toUpperCase();
         date = new Date().toString();
-        board = new ERBoard(size);
+        board = new OthelloBoard(size);
+        player1=player;
+        firstPlayerName=name;
     }
 
     /**
@@ -73,11 +78,43 @@ public class Round {
     public void setDate(String date) {
         this.date = date;
     }
-    public ERBoard getBoard() {
+    public OthelloBoard getBoard() {
         return board;
     }
-    public void setBoard(ERBoard board) {
+    public void setBoard(OthelloBoard board) {
         this.board = board;
     }
 
+    public UUID getPlayerUUID() {
+        return player1;
+    }
+
+    public void setFirstPlayerName(String firstPlayerName) {
+        this.firstPlayerName = firstPlayerName;
+
+    }
+    public String getFirstPlayerName() {
+      return  this.firstPlayerName ;
+    }
+
+    public void setSecondPlayerName(String secondPlayerName) {
+        this.secondPlayerName = secondPlayerName;
+    }
+
+    public void setPlayerUUID(String playerUUID) {
+        this.player1 = UUID.fromString(playerUUID);
+        //this.secondPlayerName=playerUUID;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setTurno(String turno) {
+        this.board.setTurno(Integer.parseInt(turno));
+    }
+
+    public boolean getActive() {
+        return active;
+    }
 }
